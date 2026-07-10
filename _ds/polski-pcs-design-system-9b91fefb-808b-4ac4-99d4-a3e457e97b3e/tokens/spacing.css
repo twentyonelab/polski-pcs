@@ -1,0 +1,25 @@
+/* Polski PCS — spacing, radius, shadow, borders */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;   /* between page sections */
+
+  --container-max: 1180px;
+  --container-pad: 32px;
+
+  --radius-sm: 6px;    /* inputs */
+  --radius-md: 8px;    /* buttons */
+  --radius-lg: 14px;   /* cards, stat bar, CTA banner */
+  --radius-pill: 999px;
+
+  --shadow-card: 0 10px 30px rgba(31, 45, 64, 0.07);
+  --shadow-float: 0 18px 45px rgba(31, 45, 64, 0.10);
+
+  --border-1: 1px solid var(--border-subtle);
+}
