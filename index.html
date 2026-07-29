@@ -535,6 +535,33 @@ a:hover { color: var(--teal-700); }
       radial-gradient(circle at 52% 92%, rgba(31,45,64,.45), transparent 60%);
     filter: blur(30px); pointer-events: none; }
   .ph-tag { position: absolute; bottom: 14px; right: 16px; z-index: 2; background: rgba(255,255,255,.82); color: var(--navy-600); font-size: 10px; font-weight: var(--weight-semibold); letter-spacing: .12em; text-transform: uppercase; padding: 6px 12px; border-radius: var(--radius-pill); }
+  /* --- ilustracja naglowkowa --- */
+  .fig-band { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card); background: var(--bg-tile); }
+  .fig-band img { width: 100%; height: auto; display: block; }
+  /* --- pasek statystyk --- */
+  .stat-card { background: var(--white); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 26px 24px; flex: 1 1 180px; min-width: 170px; }
+  .stat-v { color: var(--accent); font-size: 32px; font-weight: var(--weight-medium); line-height: 1.1; }
+  .stat-l { color: var(--text-heading); font-size: var(--text-label); font-weight: var(--weight-semibold); letter-spacing: var(--tracking-label); text-transform: uppercase; margin-top: 9px; }
+  .stat-s { color: var(--text-muted); font-size: var(--text-small); margin-top: 5px; line-height: 1.45; }
+  /* --- kroki procesu --- */
+  .step-row { display: grid; grid-template-columns: 62px 1fr; gap: 22px; align-items: start; padding: 22px 0; border-top: 1px solid var(--divider); }
+  .step-n { width: 48px; height: 48px; border-radius: 50%; background: var(--navy-800); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: var(--weight-semibold); }
+  /* --- tabela / slownik / status --- */
+  .tbl { background: var(--white); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card); }
+  .tbl-h, .tbl-r { display: grid; gap: 20px; padding: 15px 26px; align-items: start; }
+  .tbl-h { color: var(--text-muted); font-size: 11px; font-weight: var(--weight-semibold); letter-spacing: .1em; text-transform: uppercase; background: var(--bg-tile); }
+  .tbl-r { border-top: 1px solid var(--divider); font-size: var(--text-small); color: var(--text-body); line-height: 1.55; }
+  .tbl-a { color: var(--text-heading); font-weight: var(--weight-medium); font-size: 14px; display: flex; align-items: center; gap: 9px; }
+  .tbl-c { color: var(--text-muted); }
+  /* --- FAQ --- */
+  .faq-i { background: var(--white); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 24px 28px; }
+  .faq-q { margin: 0 0 9px; color: var(--text-heading); font-size: 16.5px; font-weight: var(--weight-medium); line-height: 1.4; }
+  .faq-a { margin: 0; color: var(--text-body); font-size: var(--text-small); line-height: var(--leading-body); }
+  /* --- kafle --- */
+  .tile { background: var(--white); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card); display: flex; flex-direction: column; }
+  .tile-date { padding: 20px 24px 0; color: var(--accent); font-size: 11px; font-weight: var(--weight-semibold); letter-spacing: .1em; text-transform: uppercase; }
+  .tile-bar { height: 6px; background: linear-gradient(90deg, var(--teal-300), var(--accent)); }
+
 </style>
 </helmet>
 
@@ -1219,57 +1246,120 @@ a:hover { color: var(--teal-700); }
   </main>
   </sc-if>
 
-  <!-- ============ PODSTRONY (uklad pogladowy) ============ -->
+  <!-- ============ PODSTRONY ============ -->
   <sc-if value="{{ isSub }}" hint-placeholder-val="{{ false }}">
   <main data-screen-label="Podstrona" style="background:linear-gradient(180deg,var(--bg-hero-bottom) 0%,var(--bg-page) 340px)">
+
+    <!-- naglowek -->
     <section style="max-width:var(--container-max);margin:0 auto;padding:150px 32px 0">
       <div style="color:var(--accent);font-size:var(--text-label);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-label);text-transform:uppercase;margin-bottom:16px">{{ subEyebrow }}</div>
-      <h1 style="margin:0 0 18px;color:var(--text-heading);font-size:40px;font-weight:var(--weight-light);line-height:var(--leading-tight);text-wrap:balance;max-width:820px">{{ subTitle }}</h1>
-      <p style="margin:0;color:var(--text-body);font-size:16px;line-height:var(--leading-body);max-width:700px">{{ subLead }}</p>
+      <h1 style="margin:0 0 18px;color:var(--text-heading);font-size:40px;font-weight:var(--weight-light);line-height:var(--leading-tight);text-wrap:balance;max-width:860px">{{ subTitle }}</h1>
+      <p style="margin:0;color:var(--text-body);font-size:16px;line-height:var(--leading-body);max-width:720px">{{ subLead }}</p>
     </section>
 
+    <!-- ilustracja -->
     <section style="max-width:var(--container-max);margin:0 auto;padding:34px 32px 0">
-      <div class="ph-band"><span class="ph-tag">Grafika poglądowa</span></div>
+      <div class="fig-band"><img src="{{ subGraphic }}" alt="{{ subGraphicAlt }}"></div>
     </section>
 
-    <section style="max-width:var(--container-max);margin:0 auto;padding:60px 32px 0;display:grid;grid-template-columns:1.55fr 1fr;gap:48px;align-items:start">
-      <div style="display:flex;flex-direction:column;gap:32px">
-        <sc-for list="{{ subSections }}" as="b" hint-placeholder-count="3">
-          <div>
-            <h2 style="margin:0 0 12px;color:var(--text-heading);font-size:22px;font-weight:var(--weight-medium);line-height:1.35">{{ b.h }}</h2>
-            <p style="margin:0;color:var(--text-body);font-size:var(--text-body);line-height:var(--leading-body)">{{ b.p }}</p>
-          </div>
-        </sc-for>
-      </div>
-      <div style="background:var(--white);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:28px 30px">
-        <div style="color:var(--text-muted);font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">W skrócie</div>
-        <div style="display:flex;flex-direction:column;gap:14px">
-          <sc-for list="{{ subBullets }}" as="x" hint-placeholder-count="4">
-            <x-import component-from-global-scope="PolskiPCSDesignSystem_9b91fe.ChecklistItem" hint-size="100%,24px">{{ x.t }}</x-import>
+    <!-- statystyki -->
+    <sc-if value="{{ showStats }}" hint-placeholder-val="{{ false }}">
+      <section style="max-width:var(--container-max);margin:0 auto;padding:44px 32px 0">
+        <div style="display:flex;flex-wrap:wrap;gap:18px">
+          <sc-for list="{{ subStats }}" as="st" hint-placeholder-count="4">
+            <div class="stat-card"><div class="stat-v">{{ st.v }}</div><div class="stat-l">{{ st.l }}</div><div class="stat-s">{{ st.s }}</div></div>
           </sc-for>
         </div>
-      </div>
-    </section>
+      </section>
+    </sc-if>
 
-    <section style="max-width:var(--container-max);margin:0 auto;padding:64px 32px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
-      <sc-for list="{{ subTiles }}" as="t" hint-placeholder-count="3">
-        <div style="background:var(--white);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)">
-          <div class="ph-thumb"></div>
-          <div style="padding:22px 24px 26px">
-            <h3 style="margin:0 0 8px;color:var(--text-heading);font-size:17px;font-weight:var(--weight-medium);line-height:1.35">{{ t.t }}</h3>
-            <p style="margin:0;color:var(--text-body);font-size:var(--text-small);line-height:var(--leading-body)">{{ t.p }}</p>
-          </div>
+    <!-- sekcje tekstowe + karta boczna -->
+    <sc-if value="{{ showSections }}" hint-placeholder-val="{{ true }}">
+      <section style="max-width:var(--container-max);margin:0 auto;padding:56px 32px 0;display:grid;grid-template-columns:{{ bodyCols }};gap:48px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:30px">
+          <sc-for list="{{ subSections }}" as="b" hint-placeholder-count="3">
+            <div>
+              <h2 style="margin:0 0 12px;color:var(--text-heading);font-size:22px;font-weight:var(--weight-medium);line-height:1.35">{{ b.h }}</h2>
+              <p style="margin:0;color:var(--text-body);font-size:var(--text-body);line-height:var(--leading-body)">{{ b.p }}</p>
+            </div>
+          </sc-for>
         </div>
-      </sc-for>
-    </section>
+        <sc-if value="{{ showBullets }}" hint-placeholder-val="{{ true }}">
+          <div style="background:var(--white);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:28px 30px">
+            <div style="color:var(--text-muted);font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">{{ bulletsTitle }}</div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{ subBullets }}" as="x" hint-placeholder-count="4">
+                <x-import component-from-global-scope="PolskiPCSDesignSystem_9b91fe.ChecklistItem" hint-size="100%,24px">{{ x.t }}</x-import>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
 
-    <section style="max-width:var(--container-max);margin:0 auto;padding:56px 32px 104px">
+    <!-- kroki procesu -->
+    <sc-if value="{{ showSteps }}" hint-placeholder-val="{{ false }}">
+      <section style="max-width:var(--container-max);margin:0 auto;padding:56px 32px 0">
+        <div style="background:var(--white);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:10px 34px 26px">
+          <sc-for list="{{ subSteps }}" as="k" hint-placeholder-count="4">
+            <div class="step-row">
+              <div class="step-n">{{ k.n }}</div>
+              <div>
+                <h3 style="margin:0 0 8px;color:var(--text-heading);font-size:18px;font-weight:var(--weight-medium)">{{ k.t }}</h3>
+                <p style="margin:0;color:var(--text-body);font-size:var(--text-small);line-height:var(--leading-body)">{{ k.p }}</p>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- tabela / slownik / status / kontakt -->
+    <sc-if value="{{ showRows }}" hint-placeholder-val="{{ false }}">
+      <section style="max-width:var(--container-max);margin:0 auto;padding:56px 32px 0">
+        <div class="tbl">
+          <div class="tbl-h" style="grid-template-columns:{{ rowsCols }}"><span>{{ rowsH1 }}</span><span>{{ rowsH2 }}</span><span>{{ rowsH3 }}</span></div>
+          <sc-for list="{{ subRows }}" as="r" hint-placeholder-count="6">
+            <div class="tbl-r" style="grid-template-columns:{{ rowsCols }}">
+              <span class="tbl-a">{{ r.dotEl }}{{ r.a }}</span><span>{{ r.b }}</span><span class="tbl-c">{{ r.c }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- FAQ -->
+    <sc-if value="{{ showFaq }}" hint-placeholder-val="{{ false }}">
+      <section style="max-width:900px;margin:0 auto;padding:56px 32px 0;display:flex;flex-direction:column;gap:14px">
+        <sc-for list="{{ subFaq }}" as="q" hint-placeholder-count="6">
+          <div class="faq-i"><h3 class="faq-q">{{ q.q }}</h3><p class="faq-a">{{ q.a }}</p></div>
+        </sc-for>
+      </section>
+    </sc-if>
+
+    <!-- kafle -->
+    <sc-if value="{{ showTiles }}" hint-placeholder-val="{{ false }}">
+      <section style="max-width:var(--container-max);margin:0 auto;padding:56px 32px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
+        <sc-for list="{{ subTiles }}" as="t" hint-placeholder-count="3">
+          <div class="tile">
+            {{ t.topEl }}
+            <div style="padding:20px 24px 26px">
+              <h3 style="margin:0 0 8px;color:var(--text-heading);font-size:17px;font-weight:var(--weight-medium);line-height:1.35">{{ t.t }}</h3>
+              <p style="margin:0;color:var(--text-body);font-size:var(--text-small);line-height:var(--leading-body)">{{ t.p }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </section>
+    </sc-if>
+
+    <!-- CTA -->
+    <section style="max-width:var(--container-max);margin:0 auto;padding:60px 32px 104px">
       <div style="background:var(--white);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:32px 38px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
         <div>
           <div style="color:var(--text-heading);font-size:19px;font-weight:var(--weight-medium);margin-bottom:6px">{{ subCta }}</div>
-          <div style="color:var(--text-muted);font-size:var(--text-small)">Układ poglądowy — treść do uzupełnienia.</div>
+          <div style="color:var(--text-muted);font-size:var(--text-small)">{{ subCtaSub }}</div>
         </div>
-        <span class="btn-fill" style="display:inline-flex"><x-import component-from-global-scope="PolskiPCSDesignSystem_9b91fe.Button" variant="secondary" on-click="{{ goHomeLink }}" hint-size="260px,44px">Wróć na stronę główną</x-import></span>
+        <span class="btn-fill" style="display:inline-flex"><x-import component-from-global-scope="PolskiPCSDesignSystem_9b91fe.Button" variant="secondary" on-click="{{ goKontaktLink }}" hint-size="220px,44px">Skontaktuj się</x-import></span>
       </div>
     </section>
   </main>
@@ -1435,91 +1525,355 @@ class Component extends DCLogic {
     ['FAQ', 'faq'], ['Słownik pojęć', 'slownik-pojec'], ['Status systemu', 'status-systemu'],
   ];
 
-  // tekst zastepczy dla podstron bez tresci
-  L1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
-  L2 = 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-  L3 = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.';
-  LB = ['Lorem ipsum dolor sit amet', 'Consectetur adipiscing elit', 'Sed do eiusmod tempor', 'Ut labore et dolore magna'];
 
   SUBS = {
-    // ---------- O SYSTEMIE ----------
-    'czym-jest-pcs': { par: 'o-systemie', eyebrow: 'O systemie', title: 'Czym jest Polski PCS',
-      lead: 'Port Community System to neutralna platforma wymiany danych dla całej społeczności portowej — portów, terminali, spedytorów, przewoźników, agentów i administracji.' },
-    'jak-to-dziala': { par: 'o-systemie', eyebrow: 'O systemie', title: 'Jak to działa',
-      lead: 'Zamiast wielu osobnych połączeń każdy uczestnik wymienia dane przez jedną platformę.' },
-    'ekosystem-i-integracje': { par: 'o-systemie', eyebrow: 'O systemie', title: 'Ekosystem i integracje',
-      lead: 'Integracje z systemami terminali, KAS i Single Window oraz wymiana komunikatów EDIFACT.' },
-    'bezpieczenstwo-i-zgodnosc': { par: 'o-systemie', eyebrow: 'O systemie', title: 'Bezpieczeństwo i zgodność',
-      lead: 'Spełniamy wymagania prawne i standardy obsługi portowej.' },
-    'partnerzy-i-instytucje': { par: 'o-systemie', eyebrow: 'O systemie', title: 'Partnerzy i instytucje',
-      lead: 'Łączymy systemy administracji i biznesu portowego.',
-      bullets: ['Ministerstwo Infrastruktury', 'Urząd Morski w Gdyni', 'Port Gdynia', 'Port Gdańsk'] },
-
-    // ---------- MODULY ----------
-    'modul-towarowy': { par: 'moduly', eyebrow: 'Moduły · A · Obrót towarowy', title: 'Moduł Towarowy',
-      lead: 'Import, eksport, tranzyt i wymiana EDIFACT z terminalami.' },
-    'portowa-ewidencja-towarowa': { par: 'moduly', eyebrow: 'Moduły · A · Obrót towarowy', title: 'Portowa Ewidencja Towarowa',
-      lead: 'Ewidencja obrotu towarowego w porcie.' },
-    'wolny-obszar-celny': { par: 'moduly', eyebrow: 'Moduły · A · Obrót towarowy', title: 'Wolny Obszar Celny',
-      lead: 'Obsługa Wolnego Obszaru Celnego.' },
-    'dyspozytor-portowy': { par: 'moduly', eyebrow: 'Moduły · B · Statki i zawinięcia', title: 'Dyspozytor portowy',
-      lead: 'Planowanie i bieżąca obsługa zawinięć statków.' },
-    'ewidencja-zawiniec': { par: 'moduly', eyebrow: 'Moduły · B · Statki i zawinięcia', title: 'Ewidencja Zawinięć',
-      lead: 'Awizowanie i rejestracja zawinięć statków.' },
-    'modul-maklerski': { par: 'moduly', eyebrow: 'Moduły · B · Statki i zawinięcia', title: 'Moduł Maklerski',
-      lead: 'Zgłoszenia agentów morskich do podmiotów portowych.' },
-    'modul-odpadow': { par: 'moduly', eyebrow: 'Moduły · C · Operacje i służby', title: 'Moduł Odpadów',
-      lead: 'Obsługa odbioru odpadów ze statków.' },
-    'portowa-straz-pozarna': { par: 'moduly', eyebrow: 'Moduły · C · Operacje i służby', title: 'Portowa Straż Pożarna',
-      lead: 'Zgłoszenia do Portowej Straży Pożarnej.' },
-    'modul-administracji': { par: 'moduly', eyebrow: 'Moduły · D · Zarządzanie', title: 'Moduł Administracji',
-      lead: 'Administracja systemu i uprawnienia użytkowników.' },
-    'modul-raportowy': { par: 'moduly', eyebrow: 'Moduły · D · Zarządzanie', title: 'Moduł Raportowy',
-      lead: 'Raporty i statystyki dla zarządów portów.' },
-
-    // ---------- WIEDZA ----------
-    'dokumentacja': { par: 'wiedza', eyebrow: 'Wiedza', title: 'Dokumentacja' },
-    'api': { par: 'wiedza', eyebrow: 'Wiedza', title: 'API' },
-    'szkolenia': { par: 'wiedza', eyebrow: 'Wiedza', title: 'Szkolenia' },
-    'faq': { par: 'wiedza', eyebrow: 'Wiedza', title: 'FAQ' },
-    'slownik-pojec': { par: 'wiedza', eyebrow: 'Wiedza', title: 'Słownik pojęć' },
-    'status-systemu': { par: 'wiedza', eyebrow: 'Wiedza', title: 'Status systemu' },
-    'wiedza': { par: 'wiedza', eyebrow: 'Wiedza', title: 'Wiedza',
-      lead: 'Dokumentacja, API, szkolenia i materiały pomocnicze dla uczestników Polskiego PCS.' },
-
-    // ---------- AKTUALNOSCI / KONTAKT ----------
-    'aktualnosci': { par: 'aktualnosci', eyebrow: 'Aktualności', title: 'Z portów Polskiego PCS',
-      lead: 'Informacje o rozwoju systemu, nowych modułach i wydarzeniach branżowych.',
-      tiles: [
-        { t: 'Kolejny terminal w Gdańsku podłączony do PCS', p: '2026-06-30' },
-        { t: 'Nowa wersja Modułu Towarowego i wymiany EDIFACT', p: '2026-06-24' },
-        { t: 'Polski PCS na konferencji portów Morza Bałtyckiego', p: '2026-06-12' },
-      ] },
-    'kontakt': { par: 'kontakt', eyebrow: 'Kontakt', title: 'Skontaktuj się z nami',
-      lead: 'Chcesz podłączyć swoją firmę do Polskiego PCS? Napisz do nas.',
-      bullets: ['Centrum pomocy', 'FAQ', 'Status systemu', 'Dokumentacja'] },
+    'czym-jest-pcs': {
+      par: 'o-systemie',
+      eyebrow: 'O systemie',
+      title: 'Czym jest Polski PCS',
+      lead: 'Polski PCS to platforma cyfrowa, która automatyzuje i porządkuje kluczowe procesy biznesowe w polskich portach morskich — identyfikuje, upraszcza i koordynuje obsługę statków oraz ładunków w jednym środowisku wymiany danych.',
+      graphic: 'flow',
+      sections: [{ h: 'Neutralna platforma dla całej społeczności portowej', p: 'Port Community System to klasa systemów, które łączą wszystkich uczestników obrotu portowego: zarządy portów, terminale, operatorów statków, spedytorów, przewoźników drogowych i kolejowych, agencje celne oraz organy administracji. PCS pełni rolę neutralnego pośrednika — nie zastępuje systemów uczestników, lecz spina je jednym, uzgodnionym obiegiem informacji.' }, { h: 'Jedno połączenie zamiast wielu integracji', p: 'Bez PCS każdy uczestnik musi budować oddzielne połączenia z każdym partnerem. Platforma zmienia ten model: dane wprowadzane są raz, a następnie udostępniane właściwym odbiorcom w ustrukturyzowanej formie. Ogranicza to liczbę integracji, powtarzalną pracę oraz ryzyko rozbieżności między systemami.' }, { h: 'Zasięg — cztery porty', p: 'System obejmuje porty w Gdańsku, Gdyni, Szczecinie i Świnoujściu. Dla każdego z portów utrzymywane jest odrębne środowisko dostępowe, co pozwala uwzględnić lokalne procedury przy zachowaniu wspólnego standardu wymiany danych.' }, { h: 'Efekty wdrożenia', p: 'Operatorzy systemu wskazują na ograniczenie opóźnień w obsłudze ładunków, wzrost efektywności procesów biznesowych, płynny elektroniczny obieg danych między partnerami, wyższą jakość informacji, redukcję emisji CO2 oraz lepszą koordynację wykorzystania infrastruktury portowej.' }],
+      bullets: ['Jedno miejsce wymiany danych', 'Dane wprowadzane raz', 'Mniej błędów i opóźnień', 'Wspólny standard dla portów', 'Mniej papieru w obiegu'],
+      bulletsTitle: 'Co daje PCS',
+      tiles: [{ t: 'Kto korzysta', p: 'Porty morskie, terminale, operatorzy statków i portów, przewoźnicy drogowi i kolejowi, agencje celne, organy administracji państwowej.' }, { t: 'Co obejmuje', p: 'Obsługę zawinięć statków, obrót towarowy i dokumenty celne oraz zgłoszenia do służb i podmiotów portowych.' }, { t: 'Kto prowadzi system', p: 'Polski PCS sp. z o.o. z siedzibą w Szczecinie, ul. Bytomska 7 — odpowiada za rozwój, utrzymanie i wsparcie użytkowników.' }],
+      cta: 'Chcesz podłączyć swoją firmę do Polskiego PCS?',
+      ctaSub: 'Skontaktuj się z nami — wyjaśnimy zakres modułów i przebieg wdrożenia.',
+    },
+    'jak-to-dziala': {
+      par: 'o-systemie',
+      eyebrow: 'O systemie',
+      title: 'Jak działa system PCS',
+      lead: 'Uczestnik wprowadza dane jeden raz, a platforma odpowiada za ich walidację, dystrybucję do właściwych odbiorców i zwrot informacji o statusie.',
+      graphic: 'steps',
+      bullets: ['Dane wprowadzane raz', 'Walidacja przed wysyłką', 'Automatyczna dystrybucja', 'Statusy w jednym miejscu'],
+      bulletsTitle: 'Zasady działania',
+      steps: [{ t: 'Zgłoszenie w systemie', p: 'Agent morski, spedytor lub operator wprowadza zgłoszenie: awizację zawinięcia, zgłoszenie towarowe albo zgłoszenie do podmiotu portowego. Dane trafiają do systemu w ustrukturyzowanej formie, bez maili z załącznikami.' }, { t: 'Walidacja i uzupełnienie danych', p: 'System sprawdza kompletność i spójność zgłoszenia oraz łączy je z informacjami już zarejestrowanymi w platformie. Braki są sygnalizowane od razu, zanim dokument pójdzie dalej.' }, { t: 'Dystrybucja do uczestników', p: 'Zgłoszenie jest udostępniane właściwym odbiorcom — terminalowi, dyspozytorowi portowemu, administracji lub służbom — zgodnie z rolą każdego z podmiotów w procesie.' }, { t: 'Wymiana z systemami zewnętrznymi', p: 'Platforma wymienia komunikaty z systemami terminali oraz obsługuje dokumenty celne, w tym instrukcję T2L i komunikat IE507.' }, { t: 'Statusy zwrotne i historia', p: 'Uczestnicy widzą aktualny status sprawy oraz jej historię. Ta sama, spójna informacja jest dostępna dla wszystkich stron procesu.' }],
+      cta: 'Chcesz zobaczyć przebieg procesu na swoich danych?',
+      ctaSub: 'Napisz do nas — pokażemy obieg zgłoszeń w Twoim zakresie działalności.',
+    },
+    'ekosystem-i-integracje': {
+      par: 'o-systemie',
+      eyebrow: 'O systemie',
+      title: 'Ekosystem i integracje',
+      lead: 'Polski PCS łączy systemy biznesu portowego i administracji, wymieniając dane w standardach stosowanych w obrocie morskim i celnym.',
+      graphic: 'api',
+      sections: [{ h: 'Integracja z terminalami', p: 'Platforma wymienia komunikaty z systemami operacyjnymi terminali (TOS), co pozwala przekazywać dyspozycje i odbierać potwierdzenia operacji bez ręcznego przepisywania danych. Dzięki temu ta sama informacja o ładunku jest spójna po stronie spedytora i terminala.' }, { h: 'Dokumenty i procedury celne', p: 'Moduł Towarowy obsługuje eksport towarów wraz z instrukcją T2L, obsługę importu oraz komunikat IE507, a także wspiera wymianę dokumentów celnych. Pozwala to prowadzić sprawę celną w tym samym środowisku, w którym obsługiwany jest ładunek.' }, { h: 'Środowiska portowe', p: 'Dla każdego z portów objętych systemem utrzymywane jest odrębne środowisko dostępowe — dla Gdańska, Gdyni, Szczecina i Świnoujścia. Uczestnik pracuje w środowisku właściwym dla portu, w którym realizuje operacje.' }, { h: 'Wymiana w uzgodnionych standardach', p: 'Komunikacja opiera się na standardach wymiany danych stosowanych w portach i logistyce kontenerowej. Zakres i format komunikatów ustalane są na etapie wdrożenia, wspólnie z uczestnikiem i jego dostawcą oprogramowania.' }],
+      bullets: ['Wymiana z systemami terminali', 'Dokumenty celne w jednym miejscu', 'Odrębne środowiska portowe', 'Uzgadniany zakres komunikatów'],
+      bulletsTitle: 'Obszary integracji',
+      tiles: [{ t: 'Terminale i operatorzy', p: 'Przekazywanie dyspozycji i odbiór potwierdzeń operacji na ładunku.' }, { t: 'Administracja i służby', p: 'Zgłoszenia i dokumenty w ustrukturyzowanej formie, bez obiegu papierowego.' }, { t: 'Systemy uczestników', p: 'Integracja z oprogramowaniem spedytora, agenta lub przewoźnika w ustalonym zakresie.' }],
+      cta: 'Planujesz integrację swojego systemu z PCS?',
+      ctaSub: 'Skontaktuj się z nami — ustalimy zakres wymiany danych i przebieg testów.',
+    },
+    'bezpieczenstwo-i-zgodnosc': {
+      par: 'o-systemie',
+      eyebrow: 'O systemie',
+      title: 'Bezpieczeństwo i zgodność',
+      lead: 'System obsługuje dane handlowe i dokumenty urzędowe, dlatego dostęp do informacji jest ograniczony rolą uczestnika, a operacje pozostają rozliczalne.',
+      graphic: 'shield',
+      sections: [{ h: 'Dostęp zależny od roli', p: 'Każdy użytkownik działa w ramach uprawnień nadanych jego podmiotowi. Uczestnik widzi dane dotyczące spraw, w których bierze udział — zakres widoczności wynika z roli w procesie, a nie z ogólnego dostępu do systemu.' }, { h: 'Rozliczalność operacji', p: 'Zgłoszenia i dokumenty rejestrowane są wraz z informacją o tym, kto i kiedy wprowadził albo zmienił dane. Historia sprawy pozostaje dostępna dla uprawnionych stron, co ułatwia wyjaśnianie rozbieżności.' }, { h: 'Ochrona danych osobowych', p: 'Spółka prowadząca system publikuje zasady przetwarzania danych osobowych oraz politykę plików cookies. Dane uczestników przetwarzane są w zakresie niezbędnym do obsługi procesów portowych.' }, { h: 'Zgodność z procedurami portowymi', p: 'Obieg dokumentów odwzorowuje procedury obowiązujące w portach i w obsłudze celnej. Zmiany organizacyjne po stronie administracji są uwzględniane w systemie — o istotnych zmianach informujemy uczestników w aktualnościach.' }],
+      bullets: ['Uprawnienia zależne od roli', 'Rejestracja zmian i historii', 'Zasady RODO opublikowane', 'Zgodność z procedurami portowymi'],
+      bulletsTitle: 'Zasady, które stosujemy',
+      cta: 'Masz pytania o zasady dostępu do danych?',
+      ctaSub: 'Napisz do nas — wyjaśnimy zakres uprawnień dla Twojego podmiotu.',
+    },
+    'partnerzy-i-instytucje': {
+      par: 'o-systemie',
+      eyebrow: 'O systemie',
+      title: 'Partnerzy i instytucje',
+      lead: 'Polski PCS działa na styku biznesu portowego i administracji — wartość systemu wynika z liczby podmiotów, które wymieniają w nim dane.',
+      graphic: 'map',
+      sections: [{ h: 'Porty objęte systemem', p: 'System obsługuje porty w Gdańsku, Gdyni, Szczecinie i Świnoujściu — czyli kluczowe polskie porty morskie, obsługujące zarówno ładunki skonteneryzowane, jak i drobnicę oraz ładunki masowe.' }, { h: 'Uczestnicy obrotu portowego', p: 'Wśród użytkowników systemu są porty morskie, terminale, operatorzy statków i portów, przewoźnicy drogowi i kolejowi, agencje celne oraz organy administracji państwowej. Każda z tych grup korzysta z innego zakresu funkcji.' }, { h: 'Współpraca z administracją', p: 'Obsługa dokumentów celnych wymaga bieżącego uwzględniania zmian po stronie administracji skarbowej. System jest dostosowywany do takich zmian, a uczestnicy informowani o ich wpływie na obsługę zgłoszeń.' }],
+      bullets: ['Gdańsk', 'Gdynia', 'Szczecin', 'Świnoujście'],
+      bulletsTitle: 'Porty w sieci PCS',
+      tiles: [{ t: 'Biznes portowy', p: 'Terminale, operatorzy, spedytorzy, agenci morscy i przewoźnicy.' }, { t: 'Administracja', p: 'Organy administracji państwowej oraz służby działające w portach.' }, { t: 'Operator systemu', p: 'Polski PCS sp. z o.o. — rozwój, utrzymanie i wsparcie użytkowników.' }],
+      cta: 'Reprezentujesz port, terminal lub instytucję?',
+      ctaSub: 'Porozmawiajmy o podłączeniu Twojego podmiotu do systemu.',
+    },
+    'modul-towarowy': {
+      par: 'moduly',
+      eyebrow: 'Moduły · A · Obrót towarowy',
+      title: 'Moduł Towarowy',
+      lead: 'Obsługa obrotu towarowego w porcie: eksport z instrukcją T2L, obsługa importu, komunikat IE507 oraz wymiana dokumentów celnych.',
+      graphic: 'docs',
+      sections: [{ h: 'Eksport towarów i instrukcja T2L', p: 'Moduł obsługuje zgłoszenia eksportowe wraz z instrukcją T2L, służącą potwierdzaniu unijnego statusu towarów. Dane zgłoszenia są przygotowywane i przekazywane w formie elektronicznej, bez konieczności powtarzania tych samych informacji w kilku miejscach.' }, { h: 'Obsługa importu', p: 'Dla ładunków importowych moduł prowadzi sprawę od zgłoszenia po zwolnienie towaru, łącząc informacje o ładunku z dokumentami wymaganymi w procedurze. Uczestnicy widzą, na jakim etapie znajduje się przesyłka.' }, { h: 'Komunikat IE507', p: 'Moduł wspiera obsługę komunikatu IE507, wykorzystywanego w elektronicznej komunikacji w procedurach celnych. Dzięki temu wymiana informacji z administracją odbywa się w standardzie, a nie w formie dokumentów przesyłanych pocztą elektroniczną.' }, { h: 'Wymiana dokumentów celnych', p: 'Moduł wspomaga wymianę dokumentów celnych między uczestnikami obrotu towarowego. Dokumenty pozostają powiązane ze sprawą, co ułatwia odtworzenie przebiegu obsługi ładunku.' }],
+      bullets: ['Eksport z instrukcją T2L', 'Obsługa importu', 'Komunikat IE507', 'Wymiana dokumentów celnych'],
+      bulletsTitle: 'Zakres modułu',
+      tiles: [{ t: 'Dla kogo', p: 'Spedytorzy, agencje celne i operatorzy obsługujący ładunki w portach.' }, { t: 'Wsparcie techniczne', p: 'Pytania dotyczące Modułu Towarowego: wsparcie@polskipcs.pl.' }, { t: 'Powiązane moduły', p: 'Portowa Ewidencja Towarowa oraz obsługa Wolnego Obszaru Celnego.' }],
+      cta: 'Chcesz obsługiwać ładunki w Module Towarowym?',
+      ctaSub: 'Napisz do nas — omówimy zakres zgłoszeń i przebieg uruchomienia.',
+    },
+    'portowa-ewidencja-towarowa': {
+      par: 'moduly',
+      eyebrow: 'Moduły · A · Obrót towarowy',
+      title: 'Portowa Ewidencja Towarowa',
+      lead: 'Ewidencja obrotu towarowego w porcie — uporządkowany rejestr ładunków, dokumentów i zdarzeń powiązanych z obsługą przesyłki.',
+      graphic: 'containers',
+      sections: [{ h: 'Po co prowadzi się ewidencję', p: 'Ewidencja porządkuje informacje o ładunku w jednym miejscu: dane przesyłki, powiązane dokumenty oraz zdarzenia z jej obsługi. Uczestnicy pracują na tej samej wersji informacji, zamiast rekonstruować ją z korespondencji.' }, { h: 'Powiązanie z obsługą celną', p: 'Ewidencja działa w powiązaniu z obsługą dokumentów celnych, dzięki czemu status sprawy celnej pozostaje widoczny w kontekście konkretnego ładunku.' }],
+      bullets: ['Jeden rejestr ładunku', 'Dokumenty powiązane ze sprawą', 'Widoczna historia zmian'],
+      bulletsTitle: 'W skrócie',
+      rows: [{ a: 'Dane przesyłki', b: 'Identyfikacja ładunku, w tym numery kontenerów lub jednostek ładunkowych.', c: 'Spedytor, operator' }, { a: 'Dokumenty', b: 'Dokumenty powiązane ze sprawą, w tym dokumenty celne.', c: 'Agencja celna' }, { a: 'Zdarzenia obsługi', b: 'Rejestr zdarzeń w obsłudze ładunku na terenie portu.', c: 'Terminal' }, { a: 'Status sprawy', b: 'Aktualny etap obsługi i informacja o zwolnieniu towaru.', c: 'Uczestnicy sprawy' }, { a: 'Historia zmian', b: 'Zapis kto i kiedy wprowadził lub zmienił dane.', c: 'System' }],
+      rowsMode: 'table',
+      rowsH: ['Zakres danych', 'Opis', 'Kto korzysta'],
+      cta: 'Potrzebujesz uporządkować ewidencję ładunków?',
+      ctaSub: 'Skontaktuj się z nami — pokażemy zakres danych prowadzonych w systemie.',
+    },
+    'wolny-obszar-celny': {
+      par: 'moduly',
+      eyebrow: 'Moduły · A · Obrót towarowy',
+      title: 'Wolny Obszar Celny',
+      lead: 'Obsługa obrotu towarowego realizowanego w Wolnym Obszarze Celnym na terenie portu.',
+      graphic: 'crane',
+      sections: [{ h: 'Czym jest Wolny Obszar Celny', p: 'Wolny Obszar Celny to wydzielona część obszaru celnego, w której towary nieunijne mogą być składowane i obsługiwane na szczególnych zasadach — bez konieczności natychmiastowego objęcia ich procedurą dopuszczenia do obrotu. Rozwiązanie to jest stosowane w portach ze względu na charakter obsługiwanych ładunków.' }, { h: 'Rola systemu', p: 'System porządkuje dokumentację i informacje o ładunkach obsługiwanych w takim obszarze, tak aby dane pozostawały spójne z ewidencją towarową i obsługą celną prowadzoną w pozostałych modułach.' }, { h: 'Zakres wdrożenia', p: 'Szczegółowy zakres obsługi ustalany jest indywidualnie — zależy od procedur obowiązujących w danym porcie oraz od charakteru działalności uczestnika.' }],
+      bullets: ['Szczególne zasady obsługi towarów', 'Spójność z ewidencją towarową', 'Zakres ustalany dla portu'],
+      bulletsTitle: 'Najważniejsze cechy',
+      cta: 'Prowadzisz działalność w Wolnym Obszarze Celnym?',
+      ctaSub: 'Napisz do nas — sprawdzimy, jak objąć Twoje operacje obsługą w systemie.',
+    },
+    'dyspozytor-portowy': {
+      par: 'moduly',
+      eyebrow: 'Moduły · B · Statki i zawinięcia',
+      title: 'Zgłoszenie do dyspozytora portowego',
+      lead: 'Elektroniczne zgłoszenia dotyczące zawinięcia statku, kierowane do dyspozytora portowego w ramach Modułu Maklerskiego.',
+      graphic: 'steps',
+      bullets: ['Zgłoszenia elektroniczne', 'Jedno źródło informacji o zawinięciu', 'Planowanie ruchu statków', 'Rejestrowane zmiany'],
+      bulletsTitle: 'Co zapewnia moduł',
+      steps: [{ t: 'Przygotowanie zgłoszenia', p: 'Agent morski wprowadza dane zawinięcia: informacje o statku, planowanym wejściu i celu zawinięcia. Dane wprowadzane są w systemie, w formie zgłoszenia elektronicznego.' }, { t: 'Przekazanie do dyspozytora', p: 'Zgłoszenie trafia do dyspozytora portowego, który dysponuje spójną informacją o planowanym ruchu statków w porcie.' }, { t: 'Planowanie', p: 'Funkcja plannera pozwala uporządkować planowany ruch i powiązane zgłoszenia w jednym widoku.' }, { t: 'Aktualizacje i historia', p: 'Zmiany w zgłoszeniu są rejestrowane, a uczestnicy pracują na aktualnej wersji informacji o zawinięciu.' }],
+      cta: 'Jesteś agentem morskim i chcesz zgłaszać zawinięcia elektronicznie?',
+      ctaSub: 'Skontaktuj się z nami — uruchomimy dostęp do Modułu Maklerskiego.',
+    },
+    'ewidencja-zawiniec': {
+      par: 'moduly',
+      eyebrow: 'Moduły · B · Statki i zawinięcia',
+      title: 'Ewidencja Zawinięć',
+      lead: 'Rejestr zawinięć statków do portu — dane zgłoszeń, ich aktualizacje oraz historia obsługi.',
+      graphic: 'ship',
+      sections: [{ h: 'Jedno źródło informacji o ruchu statków', p: 'Ewidencja gromadzi zgłoszenia zawinięć wraz z ich aktualizacjami. Uczestnicy i podmioty portowe korzystają z tej samej informacji o planowanym i zrealizowanym ruchu statków.' }, { h: 'Powiązanie ze zgłoszeniami do podmiotów portowych', p: 'Zawinięcie stanowi kontekst dla dalszych zgłoszeń — do dyspozytora, do służb oraz w zakresie obsługi ładunku. Dzięki temu informacje nie są wprowadzane wielokrotnie.' }],
+      bullets: ['Rejestr zgłoszeń i aktualizacji', 'Wspólny obraz ruchu statków', 'Historia zawinięć'],
+      bulletsTitle: 'W skrócie',
+      rows: [{ a: 'Dane statku', b: 'Identyfikacja jednostki, w tym numer IMO.', c: 'Agent morski' }, { a: 'Zgłoszenie zawinięcia', b: 'Planowane wejście i wyjście oraz cel zawinięcia.', c: 'Agent morski' }, { a: 'Miejsce postoju', b: 'Nabrzeże lub miejsce wskazane w porcie.', c: 'Dyspozytor portowy' }, { a: 'Aktualizacje', b: 'Zmiany terminów i zakresu zgłoszenia.', c: 'Uczestnicy zgłoszenia' }, { a: 'Historia zawinięć', b: 'Zapis zrealizowanych zawinięć jednostki.', c: 'System' }],
+      rowsMode: 'table',
+      rowsH: ['Zakres danych', 'Opis', 'Kto wprowadza'],
+      cta: 'Potrzebujesz dostępu do ewidencji zawinięć?',
+      ctaSub: 'Napisz do nas — ustalimy zakres dostępu dla Twojego podmiotu.',
+    },
+    'modul-maklerski': {
+      par: 'moduly',
+      eyebrow: 'Moduły · B · Statki i zawinięcia',
+      title: 'Moduł Maklerski',
+      lead: 'Elektroniczne zgłoszenia agentów morskich i maklerów do podmiotów portowych — od zgłoszenia do dyspozytora, przez zgłoszenie pre-arrival, po sprawozdawczość.',
+      graphic: 'flow',
+      sections: [{ h: 'Zgłoszenie do dyspozytora portowego', p: 'Moduł umożliwia elektroniczne zgłaszanie zawinięć statków do dyspozytora portowego. Zgłoszenie zastępuje obieg dokumentów prowadzony pocztą elektroniczną i telefonicznie.' }, { h: 'Zgłoszenie pre-arrival', p: 'Moduł obsługuje zgłoszenia przed przybyciem statku do portu, dzięki którym podmioty portowe otrzymują informacje o planowanym zawinięciu z wyprzedzeniem.' }, { h: 'Sprawozdawczość', p: 'Moduł wspiera przekazywanie danych sprawozdawczych związanych z obsługą statków, w formie elektronicznej i w powiązaniu ze zgłoszeniami wprowadzonymi wcześniej.' }, { h: 'Planner', p: 'Funkcja plannera porządkuje zgłoszenia i planowany ruch w jednym widoku, co ułatwia pracę przy większej liczbie obsługiwanych zawinięć.' }],
+      bullets: ['Zgłoszenia do dyspozytora', 'Zgłoszenia pre-arrival', 'Sprawozdawczość', 'Planner', 'Dodatkowe rozwiązania'],
+      bulletsTitle: 'Funkcje modułu',
+      tiles: [{ t: 'Dla kogo', p: 'Agenci morscy i maklerzy obsługujący zawinięcia statków w polskich portach.' }, { t: 'Efekt', p: 'Mniej korespondencji i telefonów, jeden obieg zgłoszeń do podmiotów portowych.' }, { t: 'Powiązania', p: 'Zgłoszenia zasilają Ewidencję Zawinięć oraz zgłoszenia do służb portowych.' }],
+      cta: 'Obsługujesz zawinięcia statków?',
+      ctaSub: 'Skontaktuj się z nami — pokażemy zakres zgłoszeń w Module Maklerskim.',
+    },
+    'modul-odpadow': {
+      par: 'moduly',
+      eyebrow: 'Moduły · C · Operacje i służby',
+      title: 'Moduł Odpadów',
+      lead: 'Obsługa zgłoszeń dotyczących odbioru odpadów ze statków zawijających do portu.',
+      graphic: 'waste',
+      sections: [{ h: 'Obowiązek zgłoszenia', p: 'Statki zawijające do portu przekazują informacje o odpadach przeznaczonych do odbioru w porcie. Wymóg ten wynika z międzynarodowych i unijnych regulacji dotyczących ochrony środowiska morskiego i portowych urządzeń odbiorczych.' }, { h: 'Rola systemu', p: 'Moduł porządkuje obieg takich zgłoszeń: agent morski przekazuje informację elektronicznie, a właściwe podmioty portowe otrzymują ją w ustrukturyzowanej formie, powiązanej ze zgłoszeniem zawinięcia.' }, { h: 'Powiązanie z zawinięciem', p: 'Zgłoszenie odpadowe jest elementem obsługi konkretnego zawinięcia, dzięki czemu nie trzeba powtarzać danych statku ani terminów wprowadzonych wcześniej.' }],
+      bullets: ['Zgłoszenie w formie elektronicznej', 'Powiązanie ze zgłoszeniem zawinięcia', 'Informacja dla podmiotów portowych'],
+      bulletsTitle: 'Jak to działa',
+      cta: 'Chcesz obsługiwać zgłoszenia odpadowe w systemie?',
+      ctaSub: 'Napisz do nas — wyjaśnimy zakres i przebieg zgłoszeń.',
+    },
+    'portowa-straz-pozarna': {
+      par: 'moduly',
+      eyebrow: 'Moduły · C · Operacje i służby',
+      title: 'Portowa Straż Pożarna',
+      lead: 'Zgłoszenia kierowane do Portowej Straży Pożarnej, w tym informacje istotne dla bezpieczeństwa operacji w porcie.',
+      graphic: 'fire',
+      sections: [{ h: 'Zgłoszenia do służb portowych', p: 'Moduł umożliwia przekazywanie zgłoszeń do Portowej Straży Pożarnej w formie elektronicznej, w powiązaniu z zawinięciem statku lub obsługą ładunku. Służby otrzymują informacje w uporządkowanej formie.' }, { h: 'Ładunki wymagające szczególnej uwagi', p: 'Część ładunków obsługiwanych w portach podlega szczególnym wymogom bezpieczeństwa — w tym ładunki niebezpieczne klasyfikowane zgodnie z przepisami międzynarodowymi. Informacja o takich ładunkach musi dotrzeć do właściwych służb przed rozpoczęciem operacji.' }, { h: 'Wspólny kontekst zgłoszenia', p: 'Ponieważ zgłoszenie powstaje w tym samym systemie co awizacja zawinięcia, służby i podmioty portowe pracują na spójnym zestawie danych o statku i operacji.' }],
+      bullets: ['Zgłoszenia elektroniczne do służb', 'Powiązanie z zawinięciem', 'Informacja przed rozpoczęciem operacji'],
+      bulletsTitle: 'Najważniejsze cechy',
+      cta: 'Potrzebujesz obsługi zgłoszeń do służb portowych?',
+      ctaSub: 'Skontaktuj się z nami — ustalimy zakres zgłoszeń dla Twojego podmiotu.',
+    },
+    'modul-administracji': {
+      par: 'moduly',
+      eyebrow: 'Moduły · D · Zarządzanie',
+      title: 'Moduł Administracji',
+      lead: 'Zarządzanie podmiotami, użytkownikami i uprawnieniami w systemie oraz nadzór nad rozliczalnością operacji.',
+      graphic: 'admin',
+      sections: [{ h: 'Podmioty i użytkownicy', p: 'Moduł pozwala prowadzić rejestr podmiotów korzystających z systemu oraz przypisanych do nich użytkowników. Dzięki temu wiadomo, kto działa w imieniu którego uczestnika obrotu portowego.' }, { h: 'Role i uprawnienia', p: 'Zakres dostępu wynika z roli użytkownika. Administracja uprawnieniami pozwala ograniczyć widoczność danych do spraw, w których podmiot bierze udział.' }, { h: 'Rozliczalność', p: 'Operacje wykonywane w systemie są rejestrowane, co umożliwia odtworzenie przebiegu sprawy i wyjaśnienie rozbieżności między uczestnikami.' }],
+      bullets: ['Rejestr podmiotów', 'Konta użytkowników', 'Role i uprawnienia', 'Dziennik operacji'],
+      bulletsTitle: 'Zakres modułu',
+      tiles: [{ t: 'Dla kogo', p: 'Osoby odpowiedzialne za dostęp do systemu po stronie uczestnika i operatora.' }, { t: 'Efekt', p: 'Kontrolowany dostęp do danych i jasny podział odpowiedzialności.' }, { t: 'Powiązania', p: 'Uprawnienia obowiązują we wszystkich modułach systemu.' }],
+      cta: 'Chcesz uporządkować dostęp użytkowników do PCS?',
+      ctaSub: 'Napisz do nas — pomożemy skonfigurować podmiot i role.',
+    },
+    'modul-raportowy': {
+      par: 'moduly',
+      eyebrow: 'Moduły · D · Zarządzanie',
+      title: 'Moduł Raportowy',
+      lead: 'Zestawienia i statystyki z danych gromadzonych w systemie — dla zarządów portów i podmiotów obsługujących ruch portowy.',
+      graphic: 'chart',
+      sections: [{ h: 'Dane, które już są w systemie', p: 'Zgłoszenia zawinięć, dane o ładunkach i obieg dokumentów tworzą spójny zbiór informacji o pracy portu. Moduł Raportowy pozwala wykorzystać te dane do zestawień, bez ręcznego zbierania informacji z wielu źródeł.' }, { h: 'Zestawienia okresowe', p: 'Na podstawie zarejestrowanych zgłoszeń można przygotowywać zestawienia dotyczące ruchu statków i obsługi ładunków w wybranym okresie.' }, { h: 'Zakres ustalany z odbiorcą', p: 'Zakres raportów i sposób ich prezentacji ustalany jest z odbiorcą — zależy od tego, jakie dane są rejestrowane w danym porcie i jakie decyzje mają wspierać.' }],
+      bullets: ['Zestawienia okresowe', 'Dane z jednego źródła', 'Zakres ustalany z odbiorcą'],
+      bulletsTitle: 'Możliwości',
+      tiles: [{ t: 'Ruch statków', p: 'Zestawienia dotyczące zgłoszonych i zrealizowanych zawinięć.' }, { t: 'Obsługa ładunków', p: 'Informacje o obsłudze przesyłek zarejestrowanych w systemie.' }, { t: 'Wsparcie decyzji', p: 'Dane wykorzystywane w planowaniu pracy i wykorzystania infrastruktury.' }],
+      cta: 'Potrzebujesz zestawień z danych portowych?',
+      ctaSub: 'Skontaktuj się z nami — omówimy zakres raportów dla Twojej organizacji.',
+    },
+    'wiedza': {
+      par: 'wiedza',
+      eyebrow: 'Wiedza',
+      title: 'Wiedza',
+      lead: 'Materiały pomocnicze dla uczestników Polskiego PCS: dokumentacja, zasady integracji, szkolenia, odpowiedzi na częste pytania i słownik pojęć.',
+      graphic: 'glossary',
+      sections: [{ h: 'Dla kogo są te materiały', p: 'Sekcja jest przeznaczona dla osób, które pracują w systemie na co dzień, oraz dla zespołów IT przygotowujących integrację. Materiały opisują zarówno przebieg zgłoszeń, jak i zasady wymiany danych.' }],
+      tiles: [{ t: 'Dokumentacja', p: 'Instrukcje i opisy procedur zgłoszeń w poszczególnych modułach.' }, { t: 'Integracja i komunikaty', p: 'Zasady wymiany danych z systemami uczestników i terminali.' }, { t: 'Szkolenia', p: 'Przebieg wdrożenia i przygotowania użytkowników do pracy w systemie.' }, { t: 'FAQ', p: 'Odpowiedzi na najczęstsze pytania o system i dostęp do niego.' }, { t: 'Słownik pojęć', p: 'Wyjaśnienia terminów stosowanych w obrocie portowym i celnym.' }, { t: 'Status systemu', p: 'Informacja o dostępności modułów i kanałach zgłaszania problemów.' }],
+      cta: 'Nie znalazłeś potrzebnej informacji?',
+      ctaSub: 'Napisz do nas albo skorzystaj ze wsparcia użytkowników.',
+    },
+    'dokumentacja': {
+      par: 'wiedza',
+      eyebrow: 'Wiedza',
+      title: 'Dokumentacja',
+      lead: 'Opisy procedur i instrukcje dla użytkowników poszczególnych modułów systemu.',
+      graphic: 'docs',
+      sections: [{ h: 'Instrukcje dla użytkowników', p: 'Dokumentacja użytkowa opisuje krok po kroku sposób przygotowania zgłoszeń w modułach — od zgłoszeń zawinięć po obsługę dokumentów w obrocie towarowym.' }, { h: 'Opisy dokumentów i komunikatów', p: 'Materiały wyjaśniają, jakie dokumenty i komunikaty są obsługiwane w danym procesie, w tym instrukcję T2L i komunikat IE507 w Module Towarowym.' }, { h: 'Materiały wdrożeniowe', p: 'Zestaw informacji potrzebnych na etapie uruchomienia: zakres danych, uprawnienia użytkowników oraz sposób pracy w środowisku właściwym dla portu.' }],
+      bullets: ['Instrukcje modułowe', 'Opisy dokumentów i komunikatów', 'Materiały wdrożeniowe', 'Wsparcie użytkowników'],
+      bulletsTitle: 'Co znajdziesz',
+      cta: 'Potrzebujesz dokumentacji dla swojego zespołu?',
+      ctaSub: 'Napisz do nas — przekażemy materiały właściwe dla Twojego zakresu pracy.',
+    },
+    'api': {
+      par: 'wiedza',
+      eyebrow: 'Wiedza',
+      title: 'Integracja i wymiana komunikatów',
+      lead: 'Zasady wymiany danych między Polskim PCS a systemami uczestników oraz systemami operacyjnymi terminali.',
+      graphic: 'api',
+      sections: [{ h: 'Po co integracja', p: 'Integracja pozwala przekazywać dane bez ręcznego wprowadzania ich po obu stronach. Uczestnik pracuje w swoim systemie, a wymiana informacji z portem odbywa się automatycznie, w ustalonym zakresie.' }, { h: 'Jak ustalamy zakres', p: 'Zakres i format wymienianych komunikatów ustalane są indywidualnie — wspólnie z uczestnikiem i jego dostawcą oprogramowania. Wdrożenie obejmuje testy przed uruchomieniem produkcyjnym.' }],
+      bullets: ['Zakres ustalany indywidualnie', 'Testy przed uruchomieniem', 'Wsparcie na etapie wdrożenia'],
+      bulletsTitle: 'Jak pracujemy',
+      rows: [{ a: 'Instrukcja T2L', b: 'Dokument potwierdzający unijny status towarów, obsługiwany w Module Towarowym.', c: 'Eksport towarów' }, { a: 'IE507', b: 'Komunikat wykorzystywany w elektronicznej komunikacji w procedurach celnych.', c: 'Obsługa celna' }, { a: 'Dokumenty celne', b: 'Wymiana dokumentów powiązanych ze sprawą celną.', c: 'Import i eksport' }, { a: 'Zgłoszenia zawinięć', b: 'Dane zawinięcia przekazywane do podmiotów portowych.', c: 'Moduł Maklerski' }, { a: 'Komunikaty z terminalami', b: 'Wymiana dyspozycji i potwierdzeń z systemami operacyjnymi terminali.', c: 'Obsługa ładunku' }],
+      rowsMode: 'table',
+      rowsH: ['Obszar wymiany', 'Opis', 'Zastosowanie'],
+      cta: 'Planujesz integrację systemu z PCS?',
+      ctaSub: 'Napisz do nas — ustalimy zakres wymiany danych i harmonogram testów.',
+    },
+    'szkolenia': {
+      par: 'wiedza',
+      eyebrow: 'Wiedza',
+      title: 'Szkolenia i wdrożenie',
+      lead: 'Uruchomienie pracy w systemie obejmuje konfigurację podmiotu, przygotowanie użytkowników i wsparcie po starcie.',
+      graphic: 'steps',
+      bullets: ['Ustalenie zakresu', 'Konfiguracja i uprawnienia', 'Szkolenie zespołu', 'Wsparcie po uruchomieniu'],
+      bulletsTitle: 'Etapy',
+      steps: [{ t: 'Kontakt i ustalenie zakresu', p: 'Określamy, w których portach i w jakim zakresie podmiot będzie pracował, oraz które moduły są potrzebne.' }, { t: 'Konfiguracja podmiotu', p: 'Rejestrujemy podmiot w systemie, tworzymy konta użytkowników i nadajemy uprawnienia odpowiadające ich rolom.' }, { t: 'Szkolenie użytkowników', p: 'Przygotowujemy zespół do pracy w modułach: przebieg zgłoszeń, obsługa dokumentów i praca na statusach spraw.' }, { t: 'Uruchomienie', p: 'Rozpoczynamy pracę produkcyjną — w razie potrzeby poprzedzoną testami wymiany danych z systemem uczestnika.' }, { t: 'Wsparcie po starcie', p: 'Po uruchomieniu użytkownicy korzystają ze wsparcia telefonicznego i zgłoszeń serwisowych.' }],
+      cta: 'Chcesz przygotować zespół do pracy w PCS?',
+      ctaSub: 'Skontaktuj się z nami — zaplanujemy wdrożenie i szkolenie.',
+    },
+    'faq': {
+      par: 'wiedza',
+      eyebrow: 'Wiedza',
+      title: 'Najczęstsze pytania',
+      lead: 'Odpowiedzi na pytania, które najczęściej pojawiają się przy podłączaniu firmy do Polskiego PCS.',
+      graphic: 'glossary',
+      faq: [{ q: 'Czym jest Polski PCS?', a: 'To platforma cyfrowa automatyzująca i porządkująca kluczowe procesy biznesowe w polskich portach — obsługę zawinięć statków, obrót towarowy oraz zgłoszenia do podmiotów portowych. System pełni rolę wspólnego środowiska wymiany danych dla uczestników obrotu portowego.' }, { q: 'W których portach działa system?', a: 'System obejmuje porty w Gdańsku, Gdyni, Szczecinie i Świnoujściu. Dla każdego z portów utrzymywane jest odrębne środowisko dostępowe.' }, { q: 'Kto może korzystać z systemu?', a: 'Porty morskie, terminale, operatorzy statków i portów, przewoźnicy drogowi i kolejowi, agencje celne oraz organy administracji państwowej. Zakres dostępnych funkcji zależy od roli podmiotu.' }, { q: 'Jakie moduły są dostępne?', a: 'Podstawowe moduły to Moduł Maklerski — obsługujący zgłoszenia do dyspozytora portowego, zgłoszenia pre-arrival, sprawozdawczość i planner — oraz Moduł Towarowy, obsługujący eksport z instrukcją T2L, import, komunikat IE507 i wymianę dokumentów celnych.' }, { q: 'Jak podłączyć firmę do systemu?', a: 'Najprościej zacząć od kontaktu z nami. Ustalamy zakres pracy i porty, rejestrujemy podmiot, tworzymy konta użytkowników i przygotowujemy zespół do pracy w modułach.' }, { q: 'Czy system można zintegrować z naszym oprogramowaniem?', a: 'Tak, wymiana danych z systemem uczestnika jest możliwa. Zakres i format komunikatów ustalamy indywidualnie, wspólnie z Państwa dostawcą oprogramowania, a przed uruchomieniem prowadzimy testy.' }, { q: 'Jak sprawdzić status kontenera?', a: 'System udostępnia funkcję sprawdzania statusu kontenerów. Aby korzystać z niej w pełnym zakresie, potrzebny jest dostęp do systemu — zakres widocznych informacji zależy od uprawnień podmiotu.' }, { q: 'Gdzie zgłosić problem techniczny?', a: 'Wsparcie użytkowników jest dostępne telefonicznie pod numerem 91 404 05 63 w godzinach 8:00–16:00 od poniedziałku do piątku. Sprawy dotyczące Modułu Towarowego można kierować na adres wsparcie@polskipcs.pl, a zgłoszenia serwisowe — przez portal service desk.' }, { q: 'Kto prowadzi system?', a: 'Operatorem systemu jest Polski PCS sp. z o.o. z siedzibą w Szczecinie, ul. Bytomska 7. Spółka odpowiada za rozwój, utrzymanie i wsparcie użytkowników.' }],
+      cta: 'Nie ma tu Twojego pytania?',
+      ctaSub: 'Napisz do nas — odpowiemy i uzupełnimy tę listę.',
+    },
+    'slownik-pojec': {
+      par: 'wiedza',
+      eyebrow: 'Wiedza',
+      title: 'Słownik pojęć',
+      lead: 'Terminy używane w obrocie portowym, obsłudze celnej i w samym systemie — zebrane w jednym miejscu.',
+      graphic: 'glossary',
+      rows: [{ a: 'PCS', b: 'Port Community System — platforma wymiany danych dla społeczności portowej, łącząca terminale, przewoźników, spedytorów, agentów i administrację.' }, { a: 'TOS', b: 'Terminal Operating System — system operacyjny terminalu, zarządzający obsługą ładunków i placem składowym.' }, { a: 'Agent morski / makler', b: 'Podmiot reprezentujący armatora lub statek wobec portu i służb; przygotowuje zgłoszenia związane z zawinięciem.' }, { a: 'Dyspozytor portowy', b: 'Służba koordynująca ruch statków w porcie oraz przyjmująca zgłoszenia dotyczące zawinięć.' }, { a: 'Zawinięcie', b: 'Wejście statku do portu wraz z pobytem i wyjściem; podstawowa jednostka planowania ruchu w porcie.' }, { a: 'Pre-arrival', b: 'Zgłoszenie przekazywane przed przybyciem statku do portu, umożliwiające przygotowanie obsługi z wyprzedzeniem.' }, { a: 'Awizacja', b: 'Wcześniejsze zgłoszenie planowanej operacji — na przykład przyjazdu środka transportu albo obsługi ładunku.' }, { a: 'T2L', b: 'Dokument służący potwierdzeniu unijnego statusu towarów; jego obsługę zapewnia Moduł Towarowy.' }, { a: 'IE507', b: 'Komunikat wykorzystywany w elektronicznej komunikacji w procedurach celnych, obsługiwany w Module Towarowym.' }, { a: 'WOC', b: 'Wolny Obszar Celny — wydzielona część obszaru celnego, w której towary nieunijne mogą być obsługiwane na szczególnych zasadach.' }, { a: 'Odprawa celna', b: 'Postępowanie, w wyniku którego towar zostaje objęty właściwą procedurą celną i może zostać zwolniony.' }, { a: 'TEU', b: 'Twenty-foot Equivalent Unit — umowna jednostka pojemności odpowiadająca kontenerowi 20-stopowemu.' }, { a: 'Kontener', b: 'Znormalizowana jednostka ładunkowa identyfikowana indywidualnym numerem, złożonym z liter i cyfr.' }, { a: 'IMDG', b: 'Międzynarodowy kodeks dotyczący przewozu towarów niebezpiecznych statkami; wyznacza zasady zgłaszania i obsługi takich ładunków.' }, { a: 'MARPOL', b: 'Międzynarodowa konwencja o zapobieganiu zanieczyszczaniu morza przez statki; źródło wymogów dotyczących odbioru odpadów w portach.' }, { a: 'Drobnica', b: 'Ładunki przewożone w jednostkach ładunkowych lub pojedynczych sztukach, w odróżnieniu od ładunków masowych.' }, { a: 'Ładunek masowy', b: 'Ładunek przewożony luzem, bez opakowania jednostkowego — na przykład węgiel, zboże czy paliwa.' }, { a: 'Nabrzeże', b: 'Miejsce w porcie przystosowane do postoju statku i prowadzenia operacji przeładunkowych.' }],
+      rowsMode: 'glossary',
+      rowsH: ['Termin', 'Znaczenie', ''],
+      cta: 'Brakuje jakiegoś terminu?',
+      ctaSub: 'Napisz do nas — chętnie uzupełnimy słownik.',
+    },
+    'status-systemu': {
+      par: 'wiedza',
+      eyebrow: 'Wiedza',
+      title: 'Status systemu i wsparcie',
+      lead: 'Gdzie zgłaszać problemy z pracą systemu i w jakich godzinach działa wsparcie użytkowników.',
+      graphic: 'status',
+      sections: [{ h: 'Jak zgłaszać problemy', p: 'Sprawy pilne, wpływające na bieżącą obsługę statków lub ładunków, najlepiej zgłaszać telefonicznie do wsparcia użytkowników. Sprawy wymagające analizy warto kierować pisemnie — wraz z opisem zgłoszenia i danymi sprawy, której dotyczą.' }, { h: 'Informacje o zmianach', p: 'O istotnych zmianach w działaniu systemu oraz o zmianach po stronie administracji, wpływających na obsługę zgłoszeń, informujemy w aktualnościach.' }],
+      bullets: ['Wsparcie 8:00–16:00, pn–pt', 'Telefon: 91 404 05 63', 'wsparcie@polskipcs.pl', 'Portal service desk'],
+      bulletsTitle: 'Kanały wsparcia',
+      rows: [{ a: 'Moduł Maklerski', b: 'Zgłoszenia do dyspozytora, pre-arrival, sprawozdawczość, planner.', c: '91 404 05 63' }, { a: 'Moduł Towarowy', b: 'Eksport z instrukcją T2L, import, IE507, dokumenty celne.', c: 'wsparcie@polskipcs.pl' }, { a: 'Wymiana komunikatów', b: 'Integracje z systemami uczestników i terminali.', c: 'Service desk' }, { a: 'Dostęp i uprawnienia', b: 'Konta użytkowników, role, dostęp do środowisk portowych.', c: 'biuro@polskipcs.pl' }, { a: 'Sprawdzanie statusu', b: 'Podgląd statusu kontenerów dla uprawnionych użytkowników.', c: '91 404 05 63' }],
+      rowsMode: 'status',
+      rowsH: ['Element systemu', 'Zakres', 'Zgłaszanie'],
+      cta: 'Masz problem z działaniem systemu?',
+      ctaSub: 'Zadzwoń lub napisz — wsparcie działa w dni robocze od 8:00 do 16:00.',
+    },
+    'aktualnosci': {
+      par: 'aktualnosci',
+      eyebrow: 'Aktualności',
+      title: 'Aktualności',
+      lead: 'Informacje o zmianach w działaniu systemu, rozwoju modułów oraz o zmianach po stronie administracji, które wpływają na obsługę zgłoszeń.',
+      graphic: 'news',
+      sections: [{ h: 'Czego dotyczą aktualności', p: 'Publikujemy informacje istotne dla codziennej pracy uczestników: zmiany w obsłudze zgłoszeń, rozwój modułów oraz zmiany procedur po stronie administracji. Dzięki temu zespoły obsługujące ładunki i zawinięcia mogą przygotować się do nich z wyprzedzeniem.' }, { h: 'Gdzie szukać pełnej listy', p: 'Pełne archiwum wpisów prowadzone jest w serwisie operatora systemu. W razie pytań o wpływ konkretnej zmiany na Państwa obsługę prosimy o kontakt ze wsparciem użytkowników.' }],
+      bullets: ['Zmiany w obsłudze zgłoszeń', 'Rozwój modułów', 'Zmiany procedur administracji'],
+      bulletsTitle: 'Tematy wpisów',
+      tiles: [{ t: 'Zmiany organizacyjne w Urzędzie Celnym w Szczecinie i wsparcie PCS obsługi kontenerów w porcie w Szczecinie', p: 'Informacja o zmianach organizacyjnych po stronie administracji skarbowej oraz o tym, jak system wspiera obsługę kontenerów w porcie w Szczecinie.', date: '1 lutego 2026' }],
+      cta: 'Chcesz otrzymywać informacje o zmianach?',
+      ctaSub: 'Napisz do nas — wskażemy, gdzie śledzić komunikaty istotne dla Twojej obsługi.',
+    },
+    'kontakt': {
+      par: 'kontakt',
+      eyebrow: 'Kontakt',
+      title: 'Kontakt',
+      lead: 'Polski PCS sp. z o.o. — operator systemu. Skontaktuj się z nami w sprawie dostępu do systemu, wdrożenia lub wsparcia użytkowników.',
+      graphic: 'contact',
+      sections: [{ h: 'W jakiej sprawie napisać do biura', p: 'Do biura warto kierować pytania o zakres systemu, podłączenie nowego podmiotu, uprawnienia użytkowników oraz sprawy organizacyjne i handlowe.' }, { h: 'Kiedy skorzystać ze wsparcia', p: 'Wsparcie użytkowników jest właściwym kanałem dla spraw wpływających na bieżącą obsługę — problemów ze zgłoszeniem, dostępem albo wymianą komunikatów. Sprawy dotyczące obrotu towarowego można kierować bezpośrednio na adres wsparcia.' }, { h: 'Dane rejestrowe', p: 'Polski PCS sp. z o.o., ul. Bytomska 7, 70-603 Szczecin. KRS 0000704544, NIP 7010718978, REGON 368360621.' }],
+      bullets: ['Dostęp do systemu — biuro', 'Problem w trakcie obsługi — wsparcie', 'Obrót towarowy — wsparcie@polskipcs.pl', 'Integracje — ustalamy indywidualnie'],
+      bulletsTitle: 'Gdzie pisać',
+      rows: [{ a: 'Biuro', b: '91 404 05 64 · biuro@polskipcs.pl', c: 'Sprawy ogólne i handlowe' }, { a: 'Wsparcie użytkowników', b: '91 404 05 63', c: '8:00–16:00, poniedziałek–piątek' }, { a: 'Wsparcie Modułu Towarowego', b: 'wsparcie@polskipcs.pl', c: 'Sprawy techniczne obrotu towarowego' }, { a: 'Zgłoszenia serwisowe', b: 'Portal service desk', c: 'Sprawy wymagające analizy' }, { a: 'Adres', b: 'ul. Bytomska 7, 70-603 Szczecin', c: 'Siedziba spółki' }],
+      rowsMode: 'contact',
+      rowsH: ['Kanał', 'Dane kontaktowe', 'Kiedy i w jakiej sprawie'],
+      cta: 'Chcesz podłączyć swoją firmę do Polskiego PCS?',
+      ctaSub: 'Zadzwoń pod 91 404 05 64 lub napisz na biuro@polskipcs.pl.',
+    },
   };
 
   subData(route) {
     const d = this.SUBS[route];
     if (!d) return null;
-    const L1 = this.L1, L2 = this.L2, L3 = this.L3;
+    const e = React.createElement;
+    const rows = d.rows || [];
+    const mode = d.rowsMode || 'table';
+    const dot = e('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: 'var(--teal-500)', flexShrink: 0, display: 'inline-block' } });
+    const COLS = { table: '1.1fr 1.7fr 1fr', glossary: '260px 1fr', status: '1.1fr 1.6fr 1fr', contact: '.9fr 1.5fr 1.1fr' };
+    const HEAD = {
+      table: d.rowsH || ['Element', 'Opis', 'Zastosowanie'],
+      glossary: d.rowsH || ['Termin', 'Znaczenie', ''],
+      status: d.rowsH || ['Element systemu', 'Opis', 'Zgłaszanie'],
+      contact: d.rowsH || ['Kanał', 'Dane', 'Kiedy'],
+    };
+    const tiles = (d.tiles || []).map((t, i) => ({
+      t: t.t, p: t.p,
+      topEl: t.date
+        ? e('div', { className: 'tile-date' }, t.date)
+        : e('div', { className: 'tile-bar' }),
+    }));
     return {
       eyebrow: d.eyebrow,
       title: d.title,
-      lead: d.lead || L1,
-      sections: d.sections || [
-        { h: 'Wprowadzenie', p: L1 },
-        { h: 'Zakres funkcjonalny', p: L2 },
-        { h: 'Korzyści dla uczestników', p: L3 },
-      ],
-      bullets: (d.bullets || this.LB).map((t) => ({ t })),
-      tiles: d.tiles || [
-        { t: 'Lorem ipsum', p: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt.' },
-        { t: 'Dolor sit amet', p: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco.' },
-        { t: 'Tempor incididunt', p: 'Duis aute irure dolor in reprehenderit in voluptate velit.' },
-      ],
-      cta: d.cta || 'Ta sekcja jest w przygotowaniu',
+      lead: d.lead || '',
+      graphic: 'img/' + (d.graphic || 'flow') + '.svg',
+      sections: d.sections || [],
+      bullets: (d.bullets || []).map((t) => ({ t })),
+      bulletsTitle: d.bulletsTitle || 'W skrócie',
+      stats: d.stats || [],
+      steps: (d.steps || []).map((k, i) => ({ n: String(i + 1), t: k.t, p: k.p })),
+      faq: d.faq || [],
+      rows: rows.map((r) => ({ a: r.a, b: r.b, c: r.c || '', dotEl: mode === 'status' ? dot : null })),
+      rowsCols: COLS[mode] || COLS.table,
+      rowsH: HEAD[mode] || HEAD.table,
+      tiles: tiles,
+      cta: d.cta || 'Chcesz podłączyć swoją firmę do PCS?',
+      ctaSub: d.ctaSub || 'Napisz do nas — pokażemy, jak wygląda obsługa Twoich ładunków w jednym systemie.',
     };
   }
 
@@ -1775,15 +2129,33 @@ class Component extends DCLogic {
           goAktualnosciLink: (ev) => { if (ev && ev.preventDefault) ev.preventDefault(); this.nav('aktualnosci'); },
           goKontaktLink: (ev) => { if (ev && ev.preventDefault) ev.preventDefault(); this.nav('kontakt'); },
 
-          // ---- generyczna podstrona ----
+          // ---- podstrona: bloki zaleza od dostarczonych danych ----
           isSub: !!d,
           subEyebrow: d ? d.eyebrow : '',
           subTitle: d ? d.title : '',
           subLead: d ? d.lead : '',
+          subGraphic: d ? d.graphic : '',
+          subGraphicAlt: d ? ('Ilustracja: ' + d.title) : '',
           subSections: d ? d.sections : [],
           subBullets: d ? d.bullets : [],
+          bulletsTitle: d ? d.bulletsTitle : 'W skrócie',
+          bodyCols: d && d.bullets && d.bullets.length ? '1.55fr 1fr' : '1fr',
+          showSections: !!(d && d.sections && d.sections.length),
+          showBullets: !!(d && d.bullets && d.bullets.length),
+          subStats: d ? d.stats : [],
+          showStats: !!(d && d.stats && d.stats.length),
+          subSteps: d ? d.steps : [],
+          showSteps: !!(d && d.steps && d.steps.length),
+          subFaq: d ? d.faq : [],
+          showFaq: !!(d && d.faq && d.faq.length),
+          subRows: d ? d.rows : [],
+          showRows: !!(d && d.rows && d.rows.length),
+          rowsCols: d ? d.rowsCols : '1fr',
+          rowsH1: d ? d.rowsH[0] : '', rowsH2: d ? d.rowsH[1] : '', rowsH3: d ? d.rowsH[2] : '',
           subTiles: d ? d.tiles : [],
+          showTiles: !!(d && d.tiles && d.tiles.length),
           subCta: d ? d.cta : '',
+          subCtaSub: d ? d.ctaSub : '',
         };
       })(),
 
