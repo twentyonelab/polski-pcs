@@ -516,6 +516,25 @@ a:hover { color: var(--teal-700); }
   .cta-ghost button:hover { background: #ffffff !important; color: var(--navy-800) !important; }
   .port-card:hover .port-img-color { opacity: 1 !important; }
   .btn-fill button:hover { background: var(--accent) !important; color: #ffffff !important; border-color: var(--accent) !important; }
+  /* --- nawigacja: rozwijane zakładki --- */
+  .nav-item { position: relative; }
+  .nav-pop { position: absolute; top: 100%; left: 0; padding-top: 16px; z-index: 90; }
+  .nav-pop-center { left: 50%; transform: translateX(-50%); }
+  .nav-pop-right { left: auto; right: 0; }
+  .nav-card { background: var(--white); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); box-shadow: var(--shadow-float); padding: 10px; }
+  .nav-sub { display: block; padding: 9px 14px; border-radius: var(--radius-sm); color: var(--navy-600) !important; font-size: 13.5px; line-height: 1.35; text-decoration: none; cursor: pointer; transition: background .15s ease, color .15s ease; }
+  .nav-sub:hover { background: var(--bg-tile); color: var(--accent) !important; }
+  .nav-col-title { color: var(--text-muted); font-size: 10px; font-weight: var(--weight-semibold); letter-spacing: .14em; text-transform: uppercase; padding: 6px 14px 8px; }
+  /* --- grafiki zaślepki (gradient + rozmycie) --- */
+  .ph-band, .ph-thumb { position: relative; overflow: hidden; background: linear-gradient(115deg, var(--bg-hero-top) 0%, var(--teal-300) 42%, var(--navy-600) 100%); }
+  .ph-band { height: 300px; border-radius: var(--radius-lg); box-shadow: var(--shadow-card); }
+  .ph-thumb { height: 150px; }
+  .ph-band::after, .ph-thumb::after { content: ""; position: absolute; inset: -25%; background:
+      radial-gradient(circle at 26% 28%, rgba(255,255,255,.60), transparent 55%),
+      radial-gradient(circle at 74% 66%, rgba(65,169,165,.55), transparent 58%),
+      radial-gradient(circle at 52% 92%, rgba(31,45,64,.45), transparent 60%);
+    filter: blur(30px); pointer-events: none; }
+  .ph-tag { position: absolute; bottom: 14px; right: 16px; z-index: 2; background: rgba(255,255,255,.82); color: var(--navy-600); font-size: 10px; font-weight: var(--weight-semibold); letter-spacing: .12em; text-transform: uppercase; padding: 6px 12px; border-radius: var(--radius-pill); }
 </style>
 </helmet>
 
@@ -607,10 +626,28 @@ a:hover { color: var(--teal-700); }
 <path d="M215.181 190.975H232.545C234.574 196.752 240.661 199.491 249.373 199.491C257.489 199.491 262.74 196.93 262.74 192.047C262.74 187.641 258.861 185.973 253.55 185.616L238.453 184.306C226.817 183.294 216.971 177.339 216.971 165.369C216.971 151.851 229.263 144.11 246.449 144.11C263.396 144.11 275.928 151.732 278.613 165.607H261.129C258.981 160.188 252.834 157.628 246.449 157.628C238.155 157.628 233.5 160.069 233.5 164.595C233.5 168.823 237.081 170.371 242.451 170.788L257.011 171.92C270.378 172.932 279.269 178.47 279.269 190.737C279.269 205.446 265.903 213.009 248.299 213.009C230.517 213.009 217.687 205.267 215.181 190.975Z" fill="var(--accent)"></path>
 <path d="M299.379 118.861H316.087V211.699H299.379V118.861ZM320.981 177.16C320.981 174.48 321.398 173.051 325.516 168.644L347.654 145.36H367.943L341.09 173.408C339.897 174.718 339.36 175.612 339.36 176.624C339.36 177.398 339.897 178.291 341.09 179.601L369.375 211.639H347.774L325.396 185.795C321.816 181.447 320.981 179.661 320.981 177.16Z" fill="var(--accent)"></path>
 <path d="M417.949 109.928C423.651 109.928 428.273 105.316 428.273 99.6263C428.273 93.9366 423.651 89.3242 417.949 89.3242C412.248 89.3242 407.626 93.9366 407.626 99.6263C407.626 105.316 412.248 109.928 417.949 109.928Z" fill="var(--accent)"></path></svg>
-        <div style="display:flex;align-items:center;gap:36px">
-          <sc-for list="{{ navItems }}" as="l" hint-placeholder-count="4">
-            <a href="#" data-nav="" data-active="{{ l.act }}" sc-camel-on-click="{{ l.onClick }}" style="color:{{ l.col }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease">{{ l.label }}</a>
-          </sc-for>
+        <div style="display:flex;align-items:center;gap:24px">
+          <div class="nav-item" onmouseenter="{{ openSystem }}" onmouseleave="{{ closeMenu }}">
+            <a href="#" data-nav="" data-active="{{ actSystem }}" sc-camel-on-click="{{ goSystemLink }}" style="color:{{ colSystem }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer">O systemie<span style="font-size:7px;letter-spacing:0;opacity:.75">▼</span></a>
+            <sc-if value="{{ menuSystem }}" hint-placeholder-val="{{ false }}">
+              <div class="nav-pop" style="width:298px"><div class="nav-card">{{ systemMenuEl }}</div></div>
+            </sc-if>
+          </div>
+          <div class="nav-item" onmouseenter="{{ openModuly }}" onmouseleave="{{ closeMenu }}">
+            <a href="#" data-nav="" data-active="{{ actModuly }}" sc-camel-on-click="{{ goModulyLink }}" style="color:{{ colModuly }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer">Moduły<span style="font-size:7px;letter-spacing:0;opacity:.75">▼</span></a>
+            <sc-if value="{{ menuModuly }}" hint-placeholder-val="{{ false }}">
+              <div class="nav-pop nav-pop-center" style="width:900px"><div class="nav-card" style="padding:20px 14px">{{ modulyMenuEl }}</div></div>
+            </sc-if>
+          </div>
+          <a href="#" data-nav="" data-active="{{ actDlaKogo }}" sc-camel-on-click="{{ goDlaKogoLink }}" style="color:{{ colDlaKogo }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer">Dla kogo</a>
+          <div class="nav-item" onmouseenter="{{ openWiedza }}" onmouseleave="{{ closeMenu }}">
+            <a href="#" data-nav="" data-active="{{ actWiedza }}" sc-camel-on-click="{{ goWiedzaLink }}" style="color:{{ colWiedza }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer">Wiedza<span style="font-size:7px;letter-spacing:0;opacity:.75">▼</span></a>
+            <sc-if value="{{ menuWiedza }}" hint-placeholder-val="{{ false }}">
+              <div class="nav-pop" style="width:262px"><div class="nav-card">{{ wiedzaMenuEl }}</div></div>
+            </sc-if>
+          </div>
+          <a href="#" data-nav="" data-active="{{ actAktualnosci }}" sc-camel-on-click="{{ goAktualnosciLink }}" style="color:{{ colAktualnosci }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer">Aktualności</a>
+          <a href="#" data-nav="" data-active="{{ actKontakt }}" sc-camel-on-click="{{ goKontaktLink }}" style="color:{{ colKontakt }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer">Kontakt</a>
           <svg width="24" height="24" sc-camel-view-box="0 0 24 24" fill="none" aria-label="Konto" style="color:var(--navy-600)">
             <circle cx="12" cy="12" r="9.3" stroke="currentColor" stroke-width="1.4"></circle>
             <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="1.4"></circle>
@@ -1118,7 +1155,6 @@ a:hover { color: var(--teal-700); }
   <sc-if value="{{ isSystem }}" hint-placeholder-val="{{ false }}">
   <main data-screen-label="O systemie" style="background:linear-gradient(180deg,var(--bg-hero-bottom) 0%,var(--bg-page) 340px)">
     <section style="max-width:var(--container-max);margin:0 auto;padding:150px 32px 24px">
-      <div style="color:var(--text-muted);font-size:var(--text-small);margin-bottom:24px"><span sc-camel-on-click="{{ goHome }}" style="cursor:pointer;color:var(--accent)">Strona główna</span> · O systemie</div>
       <div style="color:var(--accent);font-size:var(--text-label);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-label);text-transform:uppercase;margin-bottom:16px">O systemie</div>
       <h1 style="margin:0 0 18px;color:var(--text-heading);font-size:40px;font-weight:var(--weight-light);line-height:var(--leading-tight);max-width:760px;text-wrap:balance">Platforma, przez którą porty, firmy i administracja wymieniają dane w jednym miejscu</h1>
       <p style="margin:0;color:var(--text-body);font-size:16px;line-height:var(--leading-body);max-width:680px">Poniżej wyjaśniamy, czym dokładnie jest system, jak działa pod maską, z czym się łączy i jak chronimy dane.</p>
@@ -1141,7 +1177,6 @@ a:hover { color: var(--teal-700); }
   <sc-if value="{{ isModuly }}" hint-placeholder-val="{{ false }}">
   <main data-screen-label="Moduły" style="background:linear-gradient(180deg,var(--bg-hero-bottom) 0%,var(--bg-page) 340px)">
     <section style="max-width:var(--container-max);margin:0 auto;padding:150px 32px 24px">
-      <div style="color:var(--text-muted);font-size:var(--text-small);margin-bottom:24px"><span sc-camel-on-click="{{ goHome }}" style="cursor:pointer;color:var(--accent)">Strona główna</span> · Moduły</div>
       <div style="color:var(--accent);font-size:var(--text-label);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-label);text-transform:uppercase;margin-bottom:16px">Moduły</div>
       <h1 style="margin:0 0 18px;color:var(--text-heading);font-size:40px;font-weight:var(--weight-light);line-height:var(--leading-tight);max-width:760px;text-wrap:balance">PCS to jeden system złożony z modułów</h1>
       <p style="margin:0;color:var(--text-body);font-size:16px;line-height:var(--leading-body);max-width:680px">Każdy obsługuje inny fragment pracy portu, a wszystkie korzystają z tych samych danych.</p>
@@ -1169,7 +1204,6 @@ a:hover { color: var(--teal-700); }
   <sc-if value="{{ isDlaKogo }}" hint-placeholder-val="{{ false }}">
   <main data-screen-label="Dla kogo" style="background:linear-gradient(180deg,var(--bg-hero-bottom) 0%,var(--bg-page) 340px)">
     <section style="max-width:900px;margin:0 auto;padding:150px 32px 24px">
-      <div style="color:var(--text-muted);font-size:var(--text-small);margin-bottom:24px"><span sc-camel-on-click="{{ goHome }}" style="cursor:pointer;color:var(--accent)">Strona główna</span> · Dla kogo</div>
       <div style="color:var(--accent);font-size:var(--text-label);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-label);text-transform:uppercase;margin-bottom:16px">Dla kogo</div>
       <h1 style="margin:0 0 18px;color:var(--text-heading);font-size:40px;font-weight:var(--weight-light);line-height:var(--leading-tight);text-wrap:balance">PCS jest dla wszystkich, którzy uczestniczą w obrocie portowym</h1>
       <p style="margin:0;color:var(--text-body);font-size:16px;line-height:var(--leading-body);max-width:680px">Każda grupa korzysta z innych funkcji, ale z jednej platformy.</p>
@@ -1180,6 +1214,62 @@ a:hover { color: var(--teal-700); }
       </sc-for>
       <div style="margin-top:28px">
         <x-import component-from-global-scope="PolskiPCSDesignSystem_9b91fe.Button" on-click="{{ goHomeLink }}" hint-size="300px,44px">Wróć na stronę główną</x-import>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!-- ============ PODSTRONY (uklad pogladowy) ============ -->
+  <sc-if value="{{ isSub }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Podstrona" style="background:linear-gradient(180deg,var(--bg-hero-bottom) 0%,var(--bg-page) 340px)">
+    <section style="max-width:var(--container-max);margin:0 auto;padding:150px 32px 0">
+      <div style="color:var(--accent);font-size:var(--text-label);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-label);text-transform:uppercase;margin-bottom:16px">{{ subEyebrow }}</div>
+      <h1 style="margin:0 0 18px;color:var(--text-heading);font-size:40px;font-weight:var(--weight-light);line-height:var(--leading-tight);text-wrap:balance;max-width:820px">{{ subTitle }}</h1>
+      <p style="margin:0;color:var(--text-body);font-size:16px;line-height:var(--leading-body);max-width:700px">{{ subLead }}</p>
+    </section>
+
+    <section style="max-width:var(--container-max);margin:0 auto;padding:34px 32px 0">
+      <div class="ph-band"><span class="ph-tag">Grafika poglądowa</span></div>
+    </section>
+
+    <section style="max-width:var(--container-max);margin:0 auto;padding:60px 32px 0;display:grid;grid-template-columns:1.55fr 1fr;gap:48px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:32px">
+        <sc-for list="{{ subSections }}" as="b" hint-placeholder-count="3">
+          <div>
+            <h2 style="margin:0 0 12px;color:var(--text-heading);font-size:22px;font-weight:var(--weight-medium);line-height:1.35">{{ b.h }}</h2>
+            <p style="margin:0;color:var(--text-body);font-size:var(--text-body);line-height:var(--leading-body)">{{ b.p }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:28px 30px">
+        <div style="color:var(--text-muted);font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">W skrócie</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ subBullets }}" as="x" hint-placeholder-count="4">
+            <x-import component-from-global-scope="PolskiPCSDesignSystem_9b91fe.ChecklistItem" hint-size="100%,24px">{{ x.t }}</x-import>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:var(--container-max);margin:0 auto;padding:64px 32px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
+      <sc-for list="{{ subTiles }}" as="t" hint-placeholder-count="3">
+        <div style="background:var(--white);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)">
+          <div class="ph-thumb"></div>
+          <div style="padding:22px 24px 26px">
+            <h3 style="margin:0 0 8px;color:var(--text-heading);font-size:17px;font-weight:var(--weight-medium);line-height:1.35">{{ t.t }}</h3>
+            <p style="margin:0;color:var(--text-body);font-size:var(--text-small);line-height:var(--leading-body)">{{ t.p }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </section>
+
+    <section style="max-width:var(--container-max);margin:0 auto;padding:56px 32px 104px">
+      <div style="background:var(--white);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:32px 38px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+        <div>
+          <div style="color:var(--text-heading);font-size:19px;font-weight:var(--weight-medium);margin-bottom:6px">{{ subCta }}</div>
+          <div style="color:var(--text-muted);font-size:var(--text-small)">Układ poglądowy — treść do uzupełnienia.</div>
+        </div>
+        <span class="btn-fill" style="display:inline-flex"><x-import component-from-global-scope="PolskiPCSDesignSystem_9b91fe.Button" variant="secondary" on-click="{{ goHomeLink }}" hint-size="260px,44px">Wróć na stronę główną</x-import></span>
       </div>
     </section>
   </main>
@@ -1255,6 +1345,7 @@ a:hover { color: var(--teal-700); }
 class Component extends DCLogic {
   state = {
     route: 'home',
+    menu: null,
     statP: 0,
     port: 'gdansk',
     mode: 'current',
@@ -1324,6 +1415,113 @@ class Component extends DCLogic {
   };
 
   ROUTES = ['home', 'o-systemie', 'moduly', 'dla-kogo'];
+
+  // ---- struktura zakladek i podzakladek ----
+  MENU_SYSTEM = [
+    ['Czym jest PCS', 'czym-jest-pcs'],
+    ['Jak to działa', 'jak-to-dziala'],
+    ['Ekosystem i integracje', 'ekosystem-i-integracje'],
+    ['Bezpieczeństwo i zgodność', 'bezpieczenstwo-i-zgodnosc'],
+    ['Partnerzy i instytucje', 'partnerzy-i-instytucje'],
+  ];
+  MENU_MODULY = [
+    ['A · Obrót towarowy', [['Moduł Towarowy', 'modul-towarowy'], ['Portowa Ewidencja Towarowa', 'portowa-ewidencja-towarowa'], ['Wolny Obszar Celny', 'wolny-obszar-celny']]],
+    ['B · Statki i zawinięcia', [['Dyspozytor portowy', 'dyspozytor-portowy'], ['Ewidencja Zawinięć', 'ewidencja-zawiniec'], ['Moduł Maklerski', 'modul-maklerski']]],
+    ['C · Operacje i służby', [['Moduł Odpadów', 'modul-odpadow'], ['Portowa Straż Pożarna', 'portowa-straz-pozarna']]],
+    ['D · Zarządzanie', [['Moduł Administracji', 'modul-administracji'], ['Moduł Raportowy', 'modul-raportowy']]],
+  ];
+  MENU_WIEDZA = [
+    ['Dokumentacja', 'dokumentacja'], ['API', 'api'], ['Szkolenia', 'szkolenia'],
+    ['FAQ', 'faq'], ['Słownik pojęć', 'slownik-pojec'], ['Status systemu', 'status-systemu'],
+  ];
+
+  // tekst zastepczy dla podstron bez tresci
+  L1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
+  L2 = 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+  L3 = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.';
+  LB = ['Lorem ipsum dolor sit amet', 'Consectetur adipiscing elit', 'Sed do eiusmod tempor', 'Ut labore et dolore magna'];
+
+  SUBS = {
+    // ---------- O SYSTEMIE ----------
+    'czym-jest-pcs': { par: 'o-systemie', eyebrow: 'O systemie', title: 'Czym jest Polski PCS',
+      lead: 'Port Community System to neutralna platforma wymiany danych dla całej społeczności portowej — portów, terminali, spedytorów, przewoźników, agentów i administracji.' },
+    'jak-to-dziala': { par: 'o-systemie', eyebrow: 'O systemie', title: 'Jak to działa',
+      lead: 'Zamiast wielu osobnych połączeń każdy uczestnik wymienia dane przez jedną platformę.' },
+    'ekosystem-i-integracje': { par: 'o-systemie', eyebrow: 'O systemie', title: 'Ekosystem i integracje',
+      lead: 'Integracje z systemami terminali, KAS i Single Window oraz wymiana komunikatów EDIFACT.' },
+    'bezpieczenstwo-i-zgodnosc': { par: 'o-systemie', eyebrow: 'O systemie', title: 'Bezpieczeństwo i zgodność',
+      lead: 'Spełniamy wymagania prawne i standardy obsługi portowej.' },
+    'partnerzy-i-instytucje': { par: 'o-systemie', eyebrow: 'O systemie', title: 'Partnerzy i instytucje',
+      lead: 'Łączymy systemy administracji i biznesu portowego.',
+      bullets: ['Ministerstwo Infrastruktury', 'Urząd Morski w Gdyni', 'Port Gdynia', 'Port Gdańsk'] },
+
+    // ---------- MODULY ----------
+    'modul-towarowy': { par: 'moduly', eyebrow: 'Moduły · A · Obrót towarowy', title: 'Moduł Towarowy',
+      lead: 'Import, eksport, tranzyt i wymiana EDIFACT z terminalami.' },
+    'portowa-ewidencja-towarowa': { par: 'moduly', eyebrow: 'Moduły · A · Obrót towarowy', title: 'Portowa Ewidencja Towarowa',
+      lead: 'Ewidencja obrotu towarowego w porcie.' },
+    'wolny-obszar-celny': { par: 'moduly', eyebrow: 'Moduły · A · Obrót towarowy', title: 'Wolny Obszar Celny',
+      lead: 'Obsługa Wolnego Obszaru Celnego.' },
+    'dyspozytor-portowy': { par: 'moduly', eyebrow: 'Moduły · B · Statki i zawinięcia', title: 'Dyspozytor portowy',
+      lead: 'Planowanie i bieżąca obsługa zawinięć statków.' },
+    'ewidencja-zawiniec': { par: 'moduly', eyebrow: 'Moduły · B · Statki i zawinięcia', title: 'Ewidencja Zawinięć',
+      lead: 'Awizowanie i rejestracja zawinięć statków.' },
+    'modul-maklerski': { par: 'moduly', eyebrow: 'Moduły · B · Statki i zawinięcia', title: 'Moduł Maklerski',
+      lead: 'Zgłoszenia agentów morskich do podmiotów portowych.' },
+    'modul-odpadow': { par: 'moduly', eyebrow: 'Moduły · C · Operacje i służby', title: 'Moduł Odpadów',
+      lead: 'Obsługa odbioru odpadów ze statków.' },
+    'portowa-straz-pozarna': { par: 'moduly', eyebrow: 'Moduły · C · Operacje i służby', title: 'Portowa Straż Pożarna',
+      lead: 'Zgłoszenia do Portowej Straży Pożarnej.' },
+    'modul-administracji': { par: 'moduly', eyebrow: 'Moduły · D · Zarządzanie', title: 'Moduł Administracji',
+      lead: 'Administracja systemu i uprawnienia użytkowników.' },
+    'modul-raportowy': { par: 'moduly', eyebrow: 'Moduły · D · Zarządzanie', title: 'Moduł Raportowy',
+      lead: 'Raporty i statystyki dla zarządów portów.' },
+
+    // ---------- WIEDZA ----------
+    'dokumentacja': { par: 'wiedza', eyebrow: 'Wiedza', title: 'Dokumentacja' },
+    'api': { par: 'wiedza', eyebrow: 'Wiedza', title: 'API' },
+    'szkolenia': { par: 'wiedza', eyebrow: 'Wiedza', title: 'Szkolenia' },
+    'faq': { par: 'wiedza', eyebrow: 'Wiedza', title: 'FAQ' },
+    'slownik-pojec': { par: 'wiedza', eyebrow: 'Wiedza', title: 'Słownik pojęć' },
+    'status-systemu': { par: 'wiedza', eyebrow: 'Wiedza', title: 'Status systemu' },
+    'wiedza': { par: 'wiedza', eyebrow: 'Wiedza', title: 'Wiedza',
+      lead: 'Dokumentacja, API, szkolenia i materiały pomocnicze dla uczestników Polskiego PCS.' },
+
+    // ---------- AKTUALNOSCI / KONTAKT ----------
+    'aktualnosci': { par: 'aktualnosci', eyebrow: 'Aktualności', title: 'Z portów Polskiego PCS',
+      lead: 'Informacje o rozwoju systemu, nowych modułach i wydarzeniach branżowych.',
+      tiles: [
+        { t: 'Kolejny terminal w Gdańsku podłączony do PCS', p: '2026-06-30' },
+        { t: 'Nowa wersja Modułu Towarowego i wymiany EDIFACT', p: '2026-06-24' },
+        { t: 'Polski PCS na konferencji portów Morza Bałtyckiego', p: '2026-06-12' },
+      ] },
+    'kontakt': { par: 'kontakt', eyebrow: 'Kontakt', title: 'Skontaktuj się z nami',
+      lead: 'Chcesz podłączyć swoją firmę do Polskiego PCS? Napisz do nas.',
+      bullets: ['Centrum pomocy', 'FAQ', 'Status systemu', 'Dokumentacja'] },
+  };
+
+  subData(route) {
+    const d = this.SUBS[route];
+    if (!d) return null;
+    const L1 = this.L1, L2 = this.L2, L3 = this.L3;
+    return {
+      eyebrow: d.eyebrow,
+      title: d.title,
+      lead: d.lead || L1,
+      sections: d.sections || [
+        { h: 'Wprowadzenie', p: L1 },
+        { h: 'Zakres funkcjonalny', p: L2 },
+        { h: 'Korzyści dla uczestników', p: L3 },
+      ],
+      bullets: (d.bullets || this.LB).map((t) => ({ t })),
+      tiles: d.tiles || [
+        { t: 'Lorem ipsum', p: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt.' },
+        { t: 'Dolor sit amet', p: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco.' },
+        { t: 'Tempor incididunt', p: 'Duis aute irure dolor in reprehenderit in voluptate velit.' },
+      ],
+      cta: d.cta || 'Ta sekcja jest w przygotowaniu',
+    };
+  }
 
   heroVideoRef = React.createRef();
   heroYtRef = React.createRef();
@@ -1419,7 +1617,8 @@ class Component extends DCLogic {
 
   syncRoute() {
     const h = (location.hash || '').replace('#', '');
-    const r = ['o-systemie', 'moduly', 'dla-kogo'].includes(h) ? h : 'home';
+    const known = ['o-systemie', 'moduly', 'dla-kogo'].concat(Object.keys(this.SUBS));
+    const r = known.includes(h) ? h : 'home';
     if (r !== this.state.route) this.setState({ route: r });
   }
   nav(r) {
@@ -1532,6 +1731,61 @@ class Component extends DCLogic {
       goSystemLink: (ev) => { if (ev && ev.preventDefault) ev.preventDefault(); this.nav('o-systemie'); },
       goModulyLink: (ev) => { if (ev && ev.preventDefault) ev.preventDefault(); this.nav('moduly'); },
       goDlaKogoLink: (ev) => { if (ev && ev.preventDefault) ev.preventDefault(); this.nav('dla-kogo'); },
+
+      // ---- rozwijane menu: zakladki i podzakladki ----
+      ...(() => {
+        const route = s.route;
+        const sub = this.SUBS[route] || null;
+        const parent = sub ? sub.par : route;
+        const navA = (label, slug) => e('a', {
+          key: slug, href: '#', className: 'nav-sub',
+          onClick: (ev) => { if (ev && ev.preventDefault) ev.preventDefault(); this.nav(slug); },
+        }, label);
+        const col = (on) => (on ? 'var(--navy-800)' : 'var(--gray-500)');
+        const act = (on) => (on ? '1' : null);
+        const onSystem = parent === 'o-systemie';
+        const onModuly = parent === 'moduly';
+        const onWiedza = parent === 'wiedza';
+        const d = this.subData(route);
+        return {
+          menuSystem: s.menu === 'system',
+          menuModuly: s.menu === 'moduly',
+          menuWiedza: s.menu === 'wiedza',
+          openSystem: () => this.setState({ menu: 'system' }),
+          openModuly: () => this.setState({ menu: 'moduly' }),
+          openWiedza: () => this.setState({ menu: 'wiedza' }),
+          closeMenu: () => this.setState({ menu: null }),
+
+          systemMenuEl: e('div', null, ...this.MENU_SYSTEM.map(([l, sl]) => navA(l, sl))),
+          wiedzaMenuEl: e('div', null, ...this.MENU_WIEDZA.map(([l, sl]) => navA(l, sl))),
+          modulyMenuEl: e('div', {
+            style: { display: 'grid', gridTemplateColumns: 'repeat(4,minmax(0,1fr))', gap: '4px' },
+          }, ...this.MENU_MODULY.map(([title, items], gi) => e('div', { key: gi },
+            e('div', { className: 'nav-col-title' }, title),
+            ...items.map(([l, sl]) => navA(l, sl))))),
+
+          actSystem: act(onSystem), colSystem: col(onSystem),
+          actModuly: act(onModuly), colModuly: col(onModuly),
+          actDlaKogo: act(parent === 'dla-kogo'), colDlaKogo: col(parent === 'dla-kogo'),
+          actWiedza: act(onWiedza), colWiedza: col(onWiedza),
+          actAktualnosci: act(parent === 'aktualnosci'), colAktualnosci: col(parent === 'aktualnosci'),
+          actKontakt: act(parent === 'kontakt'), colKontakt: col(parent === 'kontakt'),
+
+          goWiedzaLink: (ev) => { if (ev && ev.preventDefault) ev.preventDefault(); this.nav('wiedza'); },
+          goAktualnosciLink: (ev) => { if (ev && ev.preventDefault) ev.preventDefault(); this.nav('aktualnosci'); },
+          goKontaktLink: (ev) => { if (ev && ev.preventDefault) ev.preventDefault(); this.nav('kontakt'); },
+
+          // ---- generyczna podstrona ----
+          isSub: !!d,
+          subEyebrow: d ? d.eyebrow : '',
+          subTitle: d ? d.title : '',
+          subLead: d ? d.lead : '',
+          subSections: d ? d.sections : [],
+          subBullets: d ? d.bullets : [],
+          subTiles: d ? d.tiles : [],
+          subCta: d ? d.cta : '',
+        };
+      })(),
 
       showFrameVal: this.props.showFrame ?? true,
       accentHex: (() => { const a = this.accentHsl(); return this.hslToHex(a.h, a.s, a.l); })(),
