@@ -44,12 +44,38 @@ Routing działa po hashu (np. `#modul-towarowy`), logo wraca na stronę główn�
 
 ### Treść podstron
 
-- **Strona główna, O systemie, Moduły, Dla kogo** — treść oryginalna, bez zmian.
-- **Podzakładki** — mają poprawne tytuły i (tam, gdzie było to znane z projektu)
-  prawdziwe zdania wprowadzające; pozostała treść to układ poglądowy z tekstem
-  *lorem ipsum* i zaślepkami graficznymi (gradient + rozmycie, oznaczone
-  „Grafika poglądowa"). Do podmiany po dostarczeniu treści.
+- **Strona główna, O systemie, Moduły, Dla kogo** — treść oryginalna z projektu, bez zmian.
+- **24 podzakładki** mają treść merytoryczną opartą na oficjalnym serwisie
+  **polskipcs.pl** (moduły systemu, obsługiwane komunikaty i kody w zgłoszeniach
+  celnych, integracje, dane spółki, historia wdrożeń, kanały wsparcia).
+  Bez tekstu *lorem ipsum*.
 - Breadcrumbs na podstronach zostały usunięte.
+
+### Układy (różne konwencje)
+
+Szablon podstrony renderuje bloki tylko wtedy, gdy strona dostarcza dane —
+dzięki temu każda podstrona ma układ dopasowany do treści:
+
+| Blok | Używany na |
+| --- | --- |
+| Kafle statystyk | Czym jest PCS |
+| Kroki procesu | Jak działa System PCS, Zgłoszenie do dyspozytora, Wdrożenie |
+| Tabela | Ewidencja towarowa i zawinięć, Integracja i komunikaty |
+| Słownik (2 kolumny) | Słownik pojęć |
+| Lista status + kanały | Status systemu |
+| Dane kontaktowe | Kontakt |
+| Lista pytań i odpowiedzi | FAQ |
+| Kafle z datami | Aktualności |
+| Siatka kafli | Wiedza, Partnerzy, Moduł Raportowy |
+
+### Grafiki
+
+W katalogu `img/` znajduje się 17 autorskich ilustracji SVG w palecie marki
+(schemat wymiany danych, statek, kontenery, suwnice, dokumenty, integracje,
+bezpieczeństwo, wykresy, mapa portów, odpady, ładunki niebezpieczne,
+administracja, słownik, status, aktualności, kontakt, kroki procesu).
+Każda podstrona wskazuje ilustrację adekwatną do tematu. To grafiki wektorowe —
+lekkie i ostre w każdej skali; można je zastąpić zdjęciami, podmieniając plik.
 
 ## Hosting (GitHub Pages)
 
