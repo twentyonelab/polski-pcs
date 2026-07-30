@@ -514,10 +514,11 @@ a:hover { color: var(--teal-700); }
   .stat-glass div { background-color: transparent !important; }
   .cta-ghost button { background: transparent !important; color: #ffffff !important; border: 1px solid #ffffff !important; }
   .cta-ghost button:hover { background: #ffffff !important; color: var(--navy-800) !important; }
-  .port-card:hover .port-img-color { opacity: 1 !important; }
+  /* zdjecie kolorowe domyslnie, render w skali szarosci po najechaniu */
+  .port-card:hover .port-img-color { opacity: 0 !important; }
   .btn-fill button:hover { background: var(--accent) !important; color: #ffffff !important; border-color: var(--accent) !important; }
   /* --- nawigacja: rozwijane zakładki --- */
-  .nav-item { position: relative; }
+  .nav-item { position: relative; display: flex; align-items: center; }
   .nav-pop { position: absolute; top: 100%; left: 0; padding-top: 16px; z-index: 90; }
   .nav-pop-center { left: 50%; transform: translateX(-50%); }
   .nav-pop-right { left: auto; right: 0; }
@@ -535,9 +536,16 @@ a:hover { color: var(--teal-700); }
       radial-gradient(circle at 52% 92%, rgba(31,45,64,.45), transparent 60%);
     filter: blur(30px); pointer-events: none; }
   .ph-tag { position: absolute; bottom: 14px; right: 16px; z-index: 2; background: rgba(255,255,255,.82); color: var(--navy-600); font-size: 10px; font-weight: var(--weight-semibold); letter-spacing: .12em; text-transform: uppercase; padding: 6px 12px; border-radius: var(--radius-pill); }
-  /* --- ilustracja naglowkowa --- */
-  .fig-band { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card); background: var(--bg-tile); }
-  .fig-band img { width: 100%; height: auto; display: block; }
+  /* --- ilustracja naglowkowa: to samo ustawienie 3D co diagram na stronie glownej --- */
+  .fig-stage { position: relative; perspective: 1300px; }
+  .fig-floor { position: absolute; left: -16%; right: -16%; top: 4%; bottom: -6%;
+    background-image: linear-gradient(rgba(31,45,64,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(31,45,64,.08) 1px, transparent 1px);
+    background-size: 44px 44px; transform: rotateX(58deg); transform-origin: 50% 62%;
+    -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 96%);
+    mask-image: radial-gradient(closest-side, #000 40%, transparent 96%); pointer-events: none; }
+  .fig-art { width: 100%; height: auto; display: block; position: relative;
+    transform: rotateX(16deg); filter: drop-shadow(0 34px 28px rgba(31,45,64,.18));
+    border-radius: var(--radius-lg); }
   /* --- pasek statystyk --- */
   .stat-card { background: var(--white); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 26px 24px; flex: 1 1 180px; min-width: 170px; }
   .stat-v { color: var(--accent); font-size: 32px; font-weight: var(--weight-medium); line-height: 1.1; }
@@ -655,26 +663,26 @@ a:hover { color: var(--teal-700); }
 <path d="M417.949 109.928C423.651 109.928 428.273 105.316 428.273 99.6263C428.273 93.9366 423.651 89.3242 417.949 89.3242C412.248 89.3242 407.626 93.9366 407.626 99.6263C407.626 105.316 412.248 109.928 417.949 109.928Z" fill="var(--accent)"></path></svg>
         <div style="display:flex;align-items:center;gap:24px">
           <div class="nav-item" onmouseenter="{{ openSystem }}" onmouseleave="{{ closeMenu }}">
-            <a href="#" data-nav="" data-active="{{ actSystem }}" sc-camel-on-click="{{ goSystemLink }}" style="color:{{ colSystem }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer">O systemie<span style="font-size:7px;letter-spacing:0;opacity:.75">▼</span></a>
+            <a href="#" data-nav="" data-active="{{ actSystem }}" sc-camel-on-click="{{ goSystemLink }}" style="color:{{ colSystem }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer;line-height:1">O systemie<span style="font-size:7px;letter-spacing:0;opacity:.75;line-height:1;display:block">▼</span></a>
             <sc-if value="{{ menuSystem }}" hint-placeholder-val="{{ false }}">
               <div class="nav-pop" style="width:298px"><div class="nav-card">{{ systemMenuEl }}</div></div>
             </sc-if>
           </div>
           <div class="nav-item" onmouseenter="{{ openModuly }}" onmouseleave="{{ closeMenu }}">
-            <a href="#" data-nav="" data-active="{{ actModuly }}" sc-camel-on-click="{{ goModulyLink }}" style="color:{{ colModuly }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer">Moduły<span style="font-size:7px;letter-spacing:0;opacity:.75">▼</span></a>
+            <a href="#" data-nav="" data-active="{{ actModuly }}" sc-camel-on-click="{{ goModulyLink }}" style="color:{{ colModuly }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer;line-height:1">Moduły<span style="font-size:7px;letter-spacing:0;opacity:.75;line-height:1;display:block">▼</span></a>
             <sc-if value="{{ menuModuly }}" hint-placeholder-val="{{ false }}">
               <div class="nav-pop nav-pop-center" style="width:900px"><div class="nav-card" style="padding:20px 14px">{{ modulyMenuEl }}</div></div>
             </sc-if>
           </div>
-          <a href="#" data-nav="" data-active="{{ actDlaKogo }}" sc-camel-on-click="{{ goDlaKogoLink }}" style="color:{{ colDlaKogo }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer">Dla kogo</a>
+          <div class="nav-item"><a href="#" data-nav="" data-active="{{ actDlaKogo }}" sc-camel-on-click="{{ goDlaKogoLink }}" style="color:{{ colDlaKogo }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer;line-height:1">Dla kogo</a></div>
           <div class="nav-item" onmouseenter="{{ openWiedza }}" onmouseleave="{{ closeMenu }}">
-            <a href="#" data-nav="" data-active="{{ actWiedza }}" sc-camel-on-click="{{ goWiedzaLink }}" style="color:{{ colWiedza }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer">Wiedza<span style="font-size:7px;letter-spacing:0;opacity:.75">▼</span></a>
+            <a href="#" data-nav="" data-active="{{ actWiedza }}" sc-camel-on-click="{{ goWiedzaLink }}" style="color:{{ colWiedza }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer;line-height:1">Wiedza<span style="font-size:7px;letter-spacing:0;opacity:.75;line-height:1;display:block">▼</span></a>
             <sc-if value="{{ menuWiedza }}" hint-placeholder-val="{{ false }}">
               <div class="nav-pop" style="width:262px"><div class="nav-card">{{ wiedzaMenuEl }}</div></div>
             </sc-if>
           </div>
-          <a href="#" data-nav="" data-active="{{ actAktualnosci }}" sc-camel-on-click="{{ goAktualnosciLink }}" style="color:{{ colAktualnosci }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer">Aktualności</a>
-          <a href="#" data-nav="" data-active="{{ actKontakt }}" sc-camel-on-click="{{ goKontaktLink }}" style="color:{{ colKontakt }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer">Kontakt</a>
+          <div class="nav-item"><a href="#" data-nav="" data-active="{{ actAktualnosci }}" sc-camel-on-click="{{ goAktualnosciLink }}" style="color:{{ colAktualnosci }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer;line-height:1">Aktualności</a></div>
+          <div class="nav-item"><a href="#" data-nav="" data-active="{{ actKontakt }}" sc-camel-on-click="{{ goKontaktLink }}" style="color:{{ colKontakt }};font-size:11px;font-weight:var(--weight-semibold);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:color .15s ease;display:inline-flex;align-items:center;gap:7px;cursor:pointer;line-height:1">Kontakt</a></div>
           <svg width="24" height="24" sc-camel-view-box="0 0 24 24" fill="none" aria-label="Konto" style="color:var(--navy-600)">
             <circle cx="12" cy="12" r="9.3" stroke="currentColor" stroke-width="1.4"></circle>
             <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="1.4"></circle>
@@ -1098,7 +1106,7 @@ a:hover { color: var(--teal-700); }
           <div class="port-card ring-card" sc-camel-on-click="{{ goHome }}" style="position:relative;overflow:hidden;border-radius:var(--radius-lg);cursor:pointer;box-shadow:var(--shadow-card);aspect-ratio:1/1;align-self:start">
             <div style="position:absolute;inset:0;background:var(--bg-tile)">
               <img src="res/a7b0c507-bd37-4972-85bc-1e59d8baee7c.png" alt="Port Gdańsk — render" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
-              <img src="res/bce519b6-11e2-4608-9615-fd3b7761eb34.png" alt="Port Gdańsk" class="port-img-color" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .5s ease">
+              <img src="res/bce519b6-11e2-4608-9615-fd3b7761eb34.png" alt="Port Gdańsk" class="port-img-color" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:1;transition:opacity .5s ease">
               <div style="position:absolute;left:0;right:0;bottom:0;padding:52px 26px 22px;background:linear-gradient(0deg,rgba(255,255,255,.94) 0%,rgba(255,255,255,.7) 55%,rgba(255,255,255,0) 100%)">
                 <h3 style="margin:0;color:var(--text-heading);font-size:var(--text-h3);font-weight:var(--weight-medium)">Port Gdańsk</h3>
                 <p style="margin:6px 0 0;color:var(--text-body);font-size:var(--text-small);line-height:1.5">Największy port kontenerowy na Bałtyku.</p>
@@ -1109,7 +1117,7 @@ a:hover { color: var(--teal-700); }
           <div class="port-card ring-card" sc-camel-on-click="{{ goHome }}" style="position:relative;overflow:hidden;border-radius:var(--radius-lg);cursor:pointer;box-shadow:var(--shadow-card);aspect-ratio:1/1;align-self:start">
             <div style="position:absolute;inset:0;background:var(--bg-tile)">
               <img src="res/bf0c136c-bd9a-45d2-893b-f0993655c07e.png" alt="Port Gdynia — render" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
-              <img src="res/55054da4-100f-4f7f-86a6-1b158b129bb5.png" alt="Port Gdynia" class="port-img-color" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .5s ease">
+              <img src="res/55054da4-100f-4f7f-86a6-1b158b129bb5.png" alt="Port Gdynia" class="port-img-color" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:1;transition:opacity .5s ease">
               <div style="position:absolute;left:0;right:0;bottom:0;padding:52px 26px 22px;background:linear-gradient(0deg,rgba(255,255,255,.94) 0%,rgba(255,255,255,.7) 55%,rgba(255,255,255,0) 100%)">
                 <h3 style="margin:0;color:var(--text-heading);font-size:var(--text-h3);font-weight:var(--weight-medium)">Port Gdynia</h3>
                 <p style="margin:6px 0 0;color:var(--text-body);font-size:var(--text-small);line-height:1.5">Szeroka oferta usług portowych i terminali.</p>
@@ -1120,7 +1128,7 @@ a:hover { color: var(--teal-700); }
           <div class="port-card ring-card" sc-camel-on-click="{{ goHome }}" style="position:relative;overflow:hidden;border-radius:var(--radius-lg);cursor:pointer;box-shadow:var(--shadow-card);aspect-ratio:1/1;align-self:start">
             <div style="position:absolute;inset:0;background:var(--bg-tile)">
               <img src="res/380fc366-3a34-479c-aade-49a29f8852d2.png" alt="Port Szczecin-Świnoujście — render" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
-              <img src="res/690968cf-d33d-4749-9ca0-b90c4f1d74ac.png" alt="Port Szczecin-Świnoujście" class="port-img-color" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .5s ease">
+              <img src="res/690968cf-d33d-4749-9ca0-b90c4f1d74ac.png" alt="Port Szczecin-Świnoujście" class="port-img-color" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:1;transition:opacity .5s ease">
               <div style="position:absolute;left:0;right:0;bottom:0;padding:52px 26px 22px;background:linear-gradient(0deg,rgba(255,255,255,.94) 0%,rgba(255,255,255,.7) 55%,rgba(255,255,255,0) 100%)">
                 <h3 style="margin:0;color:var(--text-heading);font-size:var(--text-h3);font-weight:var(--weight-medium)">Port Szczecin-Świnoujście</h3>
                 <p style="margin:6px 0 0;color:var(--text-body);font-size:var(--text-small);line-height:1.5">Dogodna lokalizacja i obsługa różnych ładunków.</p>
@@ -1258,8 +1266,11 @@ a:hover { color: var(--teal-700); }
     </section>
 
     <!-- ilustracja -->
-    <section style="max-width:var(--container-max);margin:0 auto;padding:34px 32px 0">
-      <div class="fig-band"><img src="{{ subGraphic }}" alt="{{ subGraphicAlt }}"></div>
+    <section style="max-width:var(--container-max);margin:0 auto;padding:26px 32px 0;overflow:hidden">
+      <div class="fig-stage">
+        <div class="fig-floor" aria-hidden="true"></div>
+        <img class="fig-art" src="{{ subGraphic }}" alt="{{ subGraphicAlt }}">
+      </div>
     </section>
 
     <!-- statystyki -->
@@ -1352,16 +1363,7 @@ a:hover { color: var(--teal-700); }
       </section>
     </sc-if>
 
-    <!-- CTA -->
-    <section style="max-width:var(--container-max);margin:0 auto;padding:60px 32px 104px">
-      <div style="background:var(--white);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:32px 38px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
-        <div>
-          <div style="color:var(--text-heading);font-size:19px;font-weight:var(--weight-medium);margin-bottom:6px">{{ subCta }}</div>
-          <div style="color:var(--text-muted);font-size:var(--text-small)">{{ subCtaSub }}</div>
-        </div>
-        <span class="btn-fill" style="display:inline-flex"><x-import component-from-global-scope="PolskiPCSDesignSystem_9b91fe.Button" variant="secondary" on-click="{{ goKontaktLink }}" hint-size="220px,44px">Skontaktuj się</x-import></span>
-      </div>
-    </section>
+    <div style="height:96px"></div>
   </main>
   </sc-if>
 
