@@ -705,8 +705,8 @@ a:hover { color: var(--teal-700); }
         </div>
       </sc-if>
       <sc-if value="{{ heroFileVideoOn }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;top:130px;right:0;left:30%;bottom:110px;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 42%);mask-image:linear-gradient(90deg,transparent 0,#000 42%)">
-          <video ref="{{ heroVideoRef }}" sc-camel-auto-play="{{ true }}" muted="{{ true }}" loop="{{ true }}" sc-camel-plays-inline="{{ true }}" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;-webkit-mask-image:linear-gradient(180deg,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 78%,transparent 100%)"></video>
+        <div style="position:absolute;top:0;right:0;left:30%;bottom:110px;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 42%);mask-image:linear-gradient(90deg,transparent 0,#000 42%)">
+          <video ref="{{ heroVideoRef }}" sc-camel-auto-play="{{ true }}" muted="{{ true }}" loop="{{ true }}" sc-camel-plays-inline="{{ true }}" poster="img/hero-port.jpg" preload="auto" style="width:100%;height:100%;object-fit:cover;object-position:center right;display:block;-webkit-mask-image:linear-gradient(180deg,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 78%,transparent 100%)"></video>
         </div>
       </sc-if>
       <sc-if value="{{ heroYtOn }}" hint-placeholder-val="{{ false }}">
@@ -1433,7 +1433,7 @@ a:hover { color: var(--teal-700); }
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script="" data-props="{&quot;modulesVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;ciemne&quot;,&quot;options&quot;:[&quot;ciemne&quot;,&quot;produktowe&quot;,&quot;ikony&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Moduły&quot;},&quot;accentLightness&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:11,&quot;min&quot;:-25,&quot;max&quot;:25,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Akcent&quot;},&quot;accentSaturation&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:-40,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Akcent&quot;},&quot;heroMedia&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;obraz&quot;,&quot;options&quot;:[&quot;obraz&quot;,&quot;video&quot;,&quot;brak&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;heroVideoUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://commons.wikimedia.org/wiki/Special:FilePath/Hamburg%20(Timelapse-Test).webm&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;showFrame&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ramka mapowa&quot;},&quot;showWatermark&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;showBoard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Strona główna&quot;},&quot;showNews&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Strona główna&quot;}}">
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;modulesVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;ciemne&quot;,&quot;options&quot;:[&quot;ciemne&quot;,&quot;produktowe&quot;,&quot;ikony&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Moduły&quot;},&quot;accentLightness&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:11,&quot;min&quot;:-25,&quot;max&quot;:25,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Akcent&quot;},&quot;accentSaturation&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:-40,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Akcent&quot;},&quot;heroMedia&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;video&quot;,&quot;options&quot;:[&quot;obraz&quot;,&quot;video&quot;,&quot;brak&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;heroVideoUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;img/hero-port.mp4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;showFrame&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ramka mapowa&quot;},&quot;showWatermark&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;showBoard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Strona główna&quot;},&quot;showNews&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Strona główna&quot;}}">
 class Component extends DCLogic {
   state = {
     route: 'home',
@@ -1930,8 +1930,8 @@ class Component extends DCLogic {
   }
 
   syncHeroMedia() {
-    const media = this.props.heroMedia ?? 'obraz';
-    const url = (this.props.heroVideoUrl ?? '').trim();
+    const media = this.props.heroMedia ?? 'video';
+    const url = (this.props.heroVideoUrl ?? 'img/hero-port.mp4').trim();
     const yt = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{6,})/);
     const v = this.heroVideoRef.current;
     if (v && media === 'video' && url && !yt) {
@@ -2163,8 +2163,8 @@ class Component extends DCLogic {
       showFrameVal: this.props.showFrame ?? true,
       accentHex: (() => { const a = this.accentHsl(); return this.hslToHex(a.h, a.s, a.l); })(),
       ...(() => {
-        const media = this.props.heroMedia ?? 'obraz';
-        const url = (this.props.heroVideoUrl ?? '').trim();
+        const media = this.props.heroMedia ?? 'video';
+        const url = (this.props.heroVideoUrl ?? 'img/hero-port.mp4').trim();
         const yt = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{6,})/);
         return {
           heroImageOn: media === 'obraz',
