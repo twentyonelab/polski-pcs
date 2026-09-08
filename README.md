@@ -92,9 +92,14 @@ woff2, 17 ilustracji SVG oraz wideo hero) osadzone jako `data:` URI:
 python3 tools/build-standalone.py ~/polski-pcs-standalone.html
 ```
 
-Wynik to ~33 MB HTML, który działa z `file://`, z pendrive'a albo z dowolnego
+Wynik to ~15 MB HTML, który działa z `file://`, z pendrive'a albo z dowolnego
 hostingu — bez katalogów `res/` i `img/`, bez żadnego zapytania sieciowego.
 Plik nie jest trzymany w repozytorium (rozmiar); generuje się go na żądanie.
+
+Nieprzezroczyste zdjęcia PNG (~16 MB) są w tym pliku przepakowywane do
+progresywnego JPEG-a (q86) — base64 powiększa każdy bajt o 1/3, a różnica na
+ekranie jest niewidoczna. Logo i ikony z kanałem alfa zostają PNG-ami.
+Wymaga `pillow`; bez niego skrypt zostawia oryginalne PNG-i (plik ~33 MB).
 
 Uwaga: skrypty JS są wstawiane jako `src="data:text/javascript;base64,…"`,
 a nie jako treść `<script>`. Runtime dc przepisuje atrybuty camelCase na
