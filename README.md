@@ -81,3 +81,22 @@ lekkie i ostre w każdej skali; można je zastąpić zdjęciami, podmieniając p
 
 Publikacja z brancha `claude/polski-pcs-design-import-8l0q2c`, folder `/ (root)`
 (Settings → Pages → Deploy from a branch).
+
+## Wersja standalone (jeden plik)
+
+`tools/build-standalone.py` buduje **jednoplikową** wersję strony — wszystkie
+zasoby (React, runtime Claude Design, design system, 24 obrazy, 15 fontów
+woff2, 17 ilustracji SVG oraz wideo hero) osadzone jako `data:` URI:
+
+```bash
+python3 tools/build-standalone.py ~/polski-pcs-standalone.html
+```
+
+Wynik to ~33 MB HTML, który działa z `file://`, z pendrive'a albo z dowolnego
+hostingu — bez katalogów `res/` i `img/`, bez żadnego zapytania sieciowego.
+Plik nie jest trzymany w repozytorium (rozmiar); generuje się go na żądanie.
+
+Uwaga: skrypty JS są wstawiane jako `src="data:text/javascript;base64,…"`,
+a nie jako treść `<script>`. Runtime dc przepisuje atrybuty camelCase na
+`sc-camel-*` w całym poddrzewie `<x-dc>`, co zmieniałoby również tekst
+skryptu w `<helmet>` (`imageAlt` → `sc-camel-image-alt`) i psuło jego parsowanie.
