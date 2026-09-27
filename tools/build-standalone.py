@@ -85,19 +85,21 @@ assert old_g in s, "brak linii z graphic:"
 s = s.replace(old_g,
     "graphic: (window.__IMG || {})[d.graphic || 'flow'] || ('img/' + (d.graphic || 'flow') + '.svg')", 1)
 
-# ---- 6. hero video: once, via a global (three references would triple ~10 MB)
-vid_uri, vn = datauri("img/hero-port.mp4")
-stats["video"] = 1
-raw_total += vn
-n_url = s.count("const url = (this.props.heroVideoUrl ?? 'img/hero-port.mp4').trim();")
-assert n_url == 2, n_url
-s = s.replace("const url = (this.props.heroVideoUrl ?? 'img/hero-port.mp4').trim();",
-              "const url = (window.__VID || this.props.heroVideoUrl || '').trim();")
+# ---- 6. media wskazywane ze skryptu (wideo hero + ich plakaty).
+# Strona rozwiazuje je przez this.media(path) -> window.__MEDIA[path], wiec
+# kazdy plik siedzi w pliku dokladnie raz, nawet gdy odwolan jest kilka.
+media = {}
+for rel in sorted(set(re.findall(r"'(img/[^']+\.(?:mp4|jpg|jpeg|png))'", s))):
+    uri, n = datauri(rel)
+    media[rel] = uri
+    stats["video" if rel.endswith(".mp4") else "images"] += 1
+    raw_total += n
+assert media, "brak mediow wskazywanych ze skryptu"
 
 # ---- 7. inject the two globals right after <head>
 inject = ("<script>\n"
           "window.__IMG=" + json.dumps(svgs) + ";\n"
-          "window.__VID=" + json.dumps(vid_uri) + ";\n"
+          "window.__MEDIA=" + json.dumps(media) + ";\n"
           "</script>\n")
 i = s.index("<head>") + len("<head>")
 s = s[:i] + "\n" + inject + s[i:]

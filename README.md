@@ -77,6 +77,24 @@ administracja, słownik, status, aktualności, kontakt, kroki procesu).
 Każda podstrona wskazuje ilustrację adekwatną do tematu. To grafiki wektorowe —
 lekkie i ostre w każdej skali; można je zastąpić zdjęciami, podmieniając plik.
 
+### Wideo w hero
+
+W prawym górnym rogu hero (tylko na stronie głównej) jest mały przełącznik
+wersji wideo w tle:
+
+| Wersja | Plik | Poster | Długość |
+| --- | --- | --- | --- |
+| **Port** | `img/hero-port.mp4` (4,8 MB) | `img/hero-poster.jpg` | 32 s |
+| **Prom** | `img/hero-prom.mp4` (9,6 MB) | `img/hero-prom-poster.jpg` | 30 s |
+
+Oba pliki są remuxowane z `faststart` (atom `moov` przed `mdat`), więc
+odtwarzanie rusza bez pobrania całości. Do czasu pierwszej klatki widać
+poster — statyczny kadr pasujący do danej wersji, nie czarne tło.
+
+Kolejne wersje dodaje się jedną pozycją w tablicy `HERO_VIDEOS`
+(`{ id, label, hint, url, poster }`) w `index.html` — przełącznik, plakaty
+i wersja jednoplikowa podchwytują je automatycznie.
+
 ## Hosting (GitHub Pages)
 
 Publikacja z brancha `claude/polski-pcs-design-import-8l0q2c`, folder `/ (root)`
