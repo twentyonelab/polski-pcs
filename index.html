@@ -526,13 +526,15 @@ a:hover { color: var(--teal-700); }
   .nav-sub { display: block; padding: 9px 14px; border-radius: var(--radius-sm); color: var(--navy-600) !important; font-size: 13.5px; line-height: 1.35; text-decoration: none; cursor: pointer; transition: background .15s ease, color .15s ease; }
   .nav-sub:hover { background: var(--bg-tile); color: var(--accent) !important; }
   /* --- przelacznik wersji wideo w hero --- */
-  .vid-switch { position: relative; }
+  .vid-switch { position: absolute; top: 16px; right: 16px; z-index: 70; }
   .vid-btn { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border: 1px solid rgba(31,45,64,.13); border-radius: 999px; background: rgba(255,255,255,.80); -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px); color: var(--navy-600); font-family: inherit; font-size: 10px; font-weight: var(--weight-semibold); letter-spacing: .16em; text-transform: uppercase; line-height: 1; cursor: pointer; box-shadow: 0 2px 10px rgba(31,45,64,.09); transition: background .15s ease, color .15s ease, border-color .15s ease; }
   .vid-btn:hover { background: #fff; color: var(--accent); border-color: rgba(65,169,165,.45); }
   .vid-btn svg { flex: none; }
   .vid-caret { transition: transform .18s ease; }
   .vid-switch[data-open="1"] .vid-caret { transform: rotate(180deg); }
-  .vid-pop { position: absolute; top: 40px; right: 0; width: 238px; padding: 6px; border-radius: var(--radius-lg); background: #fff; border: 1px solid rgba(31,45,64,.07); box-shadow: var(--shadow-card), 0 14px 34px rgba(31,45,64,.13); }
+  /* wrapper siega az do przycisku — inaczej kursor po drodze opuszcza .vid-switch i menu sie zamyka */
+  .vid-pop { position: absolute; top: 100%; right: 0; width: 238px; padding-top: 8px; }
+  .vid-card { padding: 6px; border-radius: var(--radius-lg); background: #fff; border: 1px solid rgba(31,45,64,.07); box-shadow: var(--shadow-card), 0 14px 34px rgba(31,45,64,.13); }
   .vid-opt { display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 9px 10px; border: 0; border-radius: var(--radius-sm); background: transparent; text-align: left; font-family: inherit; color: var(--navy-600); cursor: pointer; transition: background .15s ease; }
   .vid-opt:hover { background: var(--bg-tile); }
   .vid-opt[data-on="1"] { background: var(--teal-050); }
@@ -732,24 +734,20 @@ a:hover { color: var(--teal-700); }
         </div>
       </sc-if>
       <sc-if value="{{ heroFileVideoOn }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;top:122px;left:0;right:0;z-index:20;pointer-events:none">
-          <div style="max-width:var(--container-max);margin:0 auto;padding:0 32px;display:flex;justify-content:flex-end">
-            <div class="vid-switch" data-open="{{ heroVidOpen }}" onmouseleave="{{ closeHeroVid }}" style="pointer-events:auto">
-              <button type="button" class="vid-btn" sc-camel-on-click="{{ toggleHeroVid }}" aria-label="Zmien wersje wideo w tle">
-                <svg width="14" height="14" sc-camel-view-box="0 0 24 24" fill="none" aria-hidden="true">
-                  <rect x="2.9" y="5.6" width="12.6" height="12.8" rx="2.6" stroke="currentColor" stroke-width="1.7"></rect>
-                  <path d="M15.5 10.5 21.1 7.3v9.4l-5.6-3.2v-3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
-                </svg>
-                <span>{{ heroVidLabel }}</span>
-                <svg class="vid-caret" width="9" height="9" sc-camel-view-box="0 0 10 6" fill="none" aria-hidden="true">
-                  <path d="M1 1.2 5 5l4-3.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-              </button>
-              <sc-if value="{{ heroVidMenuOn }}" hint-placeholder-val="{{ false }}">
-                <div class="vid-pop">{{ heroVidMenuEl }}</div>
-              </sc-if>
-            </div>
-          </div>
+        <div class="vid-switch" data-open="{{ heroVidOpen }}" onmouseleave="{{ closeHeroVid }}">
+          <button type="button" class="vid-btn" sc-camel-on-click="{{ toggleHeroVid }}" aria-label="Zmień wersję wideo w tle">
+            <svg width="14" height="14" sc-camel-view-box="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="2.9" y="5.6" width="12.6" height="12.8" rx="2.6" stroke="currentColor" stroke-width="1.7"></rect>
+              <path d="M15.5 10.5 21.1 7.3v9.4l-5.6-3.2v-3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
+            </svg>
+            <span>{{ heroVidLabel }}</span>
+            <svg class="vid-caret" width="9" height="9" sc-camel-view-box="0 0 10 6" fill="none" aria-hidden="true">
+              <path d="M1 1.2 5 5l4-3.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+          <sc-if value="{{ heroVidMenuOn }}" hint-placeholder-val="{{ false }}">
+            <div class="vid-pop"><div class="vid-card">{{ heroVidMenuEl }}</div></div>
+          </sc-if>
         </div>
       </sc-if>
       <sc-if value="{{ showWatermarkVal }}" hint-placeholder-val="{{ true }}">
@@ -1918,8 +1916,8 @@ class Component extends DCLogic {
 
   // Wersje wideo w tle hero — przelacznik w prawym gornym rogu.
   HERO_VIDEOS = [
-    { id: 'port', label: 'Port', hint: 'Ujęcie spowolnione \u00b7 32 s', url: 'img/hero-port.mp4', poster: 'img/hero-poster.jpg' },
-    { id: 'prom', label: 'Prom', hint: 'Animacja 3D \u00b7 30 s', url: 'img/hero-prom.mp4', poster: 'img/hero-prom-poster.jpg' },
+    { id: 'port', label: 'Wersja 1', hint: 'Ujęcie spowolnione \u00b7 32 s', url: 'img/hero-port.mp4', poster: 'img/hero-poster.jpg' },
+    { id: 'prom', label: 'Wersja 2', hint: 'Animacja 3D \u00b7 30 s', url: 'img/hero-prom.mp4', poster: 'img/hero-prom-poster.jpg' },
   ];
 
   // W wersji jednoplikowej sciezki podmieniane sa na data: URI (window.__MEDIA).

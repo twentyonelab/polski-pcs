@@ -79,13 +79,13 @@ lekkie i ostre w każdej skali; można je zastąpić zdjęciami, podmieniając p
 
 ### Wideo w hero
 
-W prawym górnym rogu hero (tylko na stronie głównej) jest mały przełącznik
+W prawym górnym rogu strony (tylko na stronie głównej) jest mały przełącznik
 wersji wideo w tle:
 
 | Wersja | Plik | Poster | Długość |
 | --- | --- | --- | --- |
-| **Port** | `img/hero-port.mp4` (4,8 MB) | `img/hero-poster.jpg` | 32 s |
-| **Prom** | `img/hero-prom.mp4` (9,6 MB) | `img/hero-prom-poster.jpg` | 30 s |
+| **Wersja 1** | `img/hero-port.mp4` (4,8 MB) | `img/hero-poster.jpg` | 32 s |
+| **Wersja 2** | `img/hero-prom.mp4` (9,6 MB) | `img/hero-prom-poster.jpg` | 30 s |
 
 Oba pliki są remuxowane z `faststart` (atom `moov` przed `mdat`), więc
 odtwarzanie rusza bez pobrania całości. Do czasu pierwszej klatki widać
