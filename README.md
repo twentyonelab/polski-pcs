@@ -86,6 +86,7 @@ wersji wideo w tle:
 | --- | --- | --- | --- |
 | **Wersja 1** | `img/hero-port.mp4` (4,8 MB) | `img/hero-poster.jpg` | 32 s |
 | **Wersja 2** | `img/hero-prom.mp4` (9,6 MB) | `img/hero-prom-poster.jpg` | 30 s |
+| **Wersja 3** (domyślna) | `img/hero-final.mp4` (7,8 MB) | `img/hero-final-poster.jpg` | 30 s |
 
 Oba pliki są remuxowane z `faststart` (atom `moov` przed `mdat`), więc
 odtwarzanie rusza bez pobrania całości. Do czasu pierwszej klatki widać
@@ -93,7 +94,10 @@ poster — statyczny kadr pasujący do danej wersji, nie czarne tło.
 
 Kolejne wersje dodaje się jedną pozycją w tablicy `HERO_VIDEOS`
 (`{ id, label, hint, url, poster }`) w `index.html` — przełącznik, plakaty
-i wersja jednoplikowa podchwytują je automatycznie.
+i wersja jednoplikowa podchwytują je automatycznie. Która wersja startuje,
+ustawia `heroVid` w `state` (indeks w `HERO_VIDEOS`); ten sam plakat trzeba
+wpisać w atrybut `poster` znacznika `<video>`, bo to on jest widoczny zanim
+ruszy JS.
 
 ## Hosting (GitHub Pages)
 
@@ -113,6 +117,12 @@ python3 tools/build-standalone.py ~/polski-pcs-standalone.html
 Wynik to ~15 MB HTML, który działa z `file://`, z pendrive'a albo z dowolnego
 hostingu — bez katalogów `res/` i `img/`, bez żadnego zapytania sieciowego.
 Plik nie jest trzymany w repozytorium (rozmiar); generuje się go na żądanie.
+
+Wideo hero (~22 MB w oryginałach) jest do osadzenia przekodowywane lżej —
+H.264 CRF 27, maks. 1280 px szerokości, `+faststart` — bo po base64 komplet
+ważyłby ~29 MB. Na serwerze zostają oryginały. Wymaga `imageio-ffmpeg`;
+bez niego krok się pomija, a plik rośnie o ~16 MB. Wyniki są cache'owane
+w katalogu tymczasowym, więc kolejne buildy są szybkie.
 
 Nieprzezroczyste zdjęcia PNG (~16 MB) są w tym pliku przepakowywane do
 progresywnego JPEG-a (q86) — base64 powiększa każdy bajt o 1/3, a różnica na

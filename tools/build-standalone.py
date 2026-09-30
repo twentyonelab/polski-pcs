@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Zbuduj jednoplikowa wersje strony: wszystkie zasoby jako data URI."""
-import base64, mimetypes, os, re, sys, json
+import base64, hashlib, mimetypes, os, re, subprocess, sys, tempfile, json
 
 ROOT = "/home/user/polski-pcs"
 OUT  = sys.argv[1] if len(sys.argv) > 1 else "/home/user/polski-pcs/polski-pcs-standalone.html"
@@ -31,6 +31,36 @@ def _repack_png(path):
     out = buf.getvalue()
     return (out, "image/jpeg") if len(out) < os.path.getsize(path) else None
 
+# Wideo hero w pelnej jakosci to ~21 MB (a po base64 ~29 MB) — za duzo jak na
+# jeden plik. Do osadzenia przekodowujemy je lzej; strona na serwerze dostaje
+# oryginaly. Bez ffmpeg (imageio-ffmpeg) krok sie pomija i pliki ida w calosci.
+VIDEO_CRF = 27
+VIDEO_MAX_W = 1280
+_VID_CACHE = os.path.join(tempfile.gettempdir(), "polski-pcs-standalone-wideo")
+
+def _shrink_video(path):
+    """Lzejszy wariant wideo do osadzenia. Zwraca sciezke albo None."""
+    try:
+        import imageio_ffmpeg
+        ff = imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception:
+        return None
+    st = os.stat(path)
+    key = hashlib.sha1(
+        f"{os.path.abspath(path)}|{st.st_size}|{int(st.st_mtime)}|{VIDEO_CRF}|{VIDEO_MAX_W}"
+        .encode()).hexdigest()[:16]
+    os.makedirs(_VID_CACHE, exist_ok=True)
+    out = os.path.join(_VID_CACHE, key + ".mp4")
+    if not os.path.exists(out):
+        cmd = [ff, "-y", "-hide_banner", "-loglevel", "error", "-i", path, "-an",
+               "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p",
+               "-crf", str(VIDEO_CRF), "-preset", "slow", "-g", "48",
+               "-vf", f"scale='min({VIDEO_MAX_W},iw)':-2",
+               "-movflags", "+faststart", out]
+        if subprocess.call(cmd) != 0 or not os.path.exists(out):
+            return None
+    return out if os.path.getsize(out) < os.path.getsize(path) else None
+
 def datauri(rel):
     p = os.path.join(ROOT, rel)
     ext = os.path.splitext(rel)[1].lower()
@@ -40,6 +70,10 @@ def datauri(rel):
         if packed:
             b, mime = packed
             return f"data:{mime};base64," + base64.b64encode(b).decode("ascii"), len(b)
+    if ext == ".mp4":
+        lite = _shrink_video(p)
+        if lite:
+            p = lite
     b = open(p, "rb").read()
     return f"data:{mime};base64," + base64.b64encode(b).decode("ascii"), len(b)
 

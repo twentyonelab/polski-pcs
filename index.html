@@ -723,7 +723,7 @@ a:hover { color: var(--teal-700); }
       </sc-if>
       <sc-if value="{{ heroFileVideoOn }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;top:0;right:0;left:30%;bottom:110px;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 42%);mask-image:linear-gradient(90deg,transparent 0,#000 42%)">
-          <video ref="{{ heroVideoRef }}" sc-camel-auto-play="{{ true }}" muted="{{ true }}" loop="{{ true }}" sc-camel-plays-inline="{{ true }}" poster="img/hero-poster.jpg" preload="auto" style="width:100%;height:100%;object-fit:cover;object-position:center right;display:block;-webkit-mask-image:linear-gradient(180deg,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 78%,transparent 100%)"></video>
+          <video ref="{{ heroVideoRef }}" sc-camel-auto-play="{{ true }}" muted="{{ true }}" loop="{{ true }}" sc-camel-plays-inline="{{ true }}" poster="img/hero-final-poster.jpg" preload="auto" style="width:100%;height:100%;object-fit:cover;object-position:center right;display:block;-webkit-mask-image:linear-gradient(180deg,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 78%,transparent 100%)"></video>
         </div>
       </sc-if>
       <sc-if value="{{ heroYtOn }}" hint-placeholder-val="{{ false }}">
@@ -1480,7 +1480,7 @@ class Component extends DCLogic {
     cNum: '',
     cState: null,
     cResult: null,
-    heroVid: 0,
+    heroVid: 2,   // domyslnie najnowsza wersja z HERO_VIDEOS
     heroVidMenu: false,
   };
 
@@ -1918,6 +1918,7 @@ class Component extends DCLogic {
   HERO_VIDEOS = [
     { id: 'port', label: 'Wersja 1', hint: 'Ujęcie spowolnione \u00b7 32 s', url: 'img/hero-port.mp4', poster: 'img/hero-poster.jpg' },
     { id: 'prom', label: 'Wersja 2', hint: 'Animacja 3D \u00b7 30 s', url: 'img/hero-prom.mp4', poster: 'img/hero-prom-poster.jpg' },
+    { id: 'final', label: 'Wersja 3', hint: 'Animacja finalna \u00b7 30 s', url: 'img/hero-final.mp4', poster: 'img/hero-final-poster.jpg' },
   ];
 
   // W wersji jednoplikowej sciezki podmieniane sa na data: URI (window.__MEDIA).
