@@ -723,7 +723,7 @@ a:hover { color: var(--teal-700); }
       </sc-if>
       <sc-if value="{{ heroFileVideoOn }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;top:0;right:0;left:30%;bottom:110px;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 42%);mask-image:linear-gradient(90deg,transparent 0,#000 42%)">
-          <video ref="{{ heroVideoRef }}" sc-camel-auto-play="{{ true }}" muted="{{ true }}" loop="{{ true }}" sc-camel-plays-inline="{{ true }}" poster="img/hero-final-poster.jpg" preload="auto" style="width:100%;height:100%;object-fit:cover;object-position:center right;display:block;-webkit-mask-image:linear-gradient(180deg,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 78%,transparent 100%)"></video>
+          <video ref="{{ heroVideoRef }}" sc-camel-auto-play="{{ true }}" muted="{{ true }}" loop="{{ true }}" sc-camel-plays-inline="{{ true }}" poster="img/hero-v4-poster.jpg" preload="auto" style="width:100%;height:100%;object-fit:cover;object-position:center right;display:block;-webkit-mask-image:linear-gradient(180deg,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 78%,transparent 100%)"></video>
         </div>
       </sc-if>
       <sc-if value="{{ heroYtOn }}" hint-placeholder-val="{{ false }}">
@@ -1480,7 +1480,7 @@ class Component extends DCLogic {
     cNum: '',
     cState: null,
     cResult: null,
-    heroVid: 2,   // domyslnie najnowsza wersja z HERO_VIDEOS
+    heroVid: 3,   // domyslnie najnowsza wersja z HERO_VIDEOS
     heroVidMenu: false,
   };
 
