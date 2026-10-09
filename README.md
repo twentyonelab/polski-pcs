@@ -87,6 +87,7 @@ wersji wideo w tle:
 | **Wersja 1** | `img/hero-port.mp4` (4,8 MB) | `img/hero-poster.jpg` | 32 s |
 | **Wersja 2** | `img/hero-prom.mp4` (9,6 MB) | `img/hero-prom-poster.jpg` | 30 s |
 | **Wersja 3** (domyślna) | `img/hero-final.mp4` (7,8 MB) | `img/hero-final-poster.jpg` | 30 s |
+| **Wersja 4** | `img/hero-v4.mp4` (8,2 MB) | `img/hero-v4-poster.jpg` | 30 s |
 
 Oba pliki są remuxowane z `faststart` (atom `moov` przed `mdat`), więc
 odtwarzanie rusza bez pobrania całości. Do czasu pierwszej klatki widać
